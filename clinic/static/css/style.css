@@ -1,0 +1,222 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    /* transition: 0.3s ease-in-out; */
+}
+ul {
+    list-style: none;
+}
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    line-height: normal;
+    color: #333;
+    /* Времмено пока делаем плеер */
+    background: #fff;
+}
+.top-line {
+    background-color: #676cb5;
+    min-height: 5px;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.05);
+}
+a {
+    color: #f26249;
+}
+a:hover {
+    color: #676cb5;
+}
+header {
+    padding: 10px 0;
+}
+header a:hover,
+.top-line a:hover {
+    text-decoration: none;
+}
+.top-adress {
+    padding-left: 20px;
+}
+.top-grafic {
+    padding-left: 20px;
+}
+.top-grafic span,
+.primary {
+    color: #f26249;
+}
+.top-phone,
+.top-phone a {
+    font-size: 23px;
+    color: #676cb5;
+}
+.top-phone-light,
+.top-phone-light a {
+    font-size: 23px;
+    color: #fff;
+    padding: 20px 0;
+}
+.top-hr {
+    margin: 5px 0;
+}
+.navbar-item .logo {
+    color: #f26249;
+    font-size: 44px;
+}
+.title {
+    color: #333;
+    font-size: 20px;
+    margin: 0 20px;
+}
+.navbar-item {
+    color: #333;
+    padding: 0.5rem 0.9rem;
+}
+a.navbar-item:hover {
+    background-color: #fff;
+    color: #f26249;
+}
+.navbar-item.has-dropdown:hover .navbar-link {
+    background-color: #fff;
+    color: #f26249;
+}
+.navbar-link:not(.is-arrowless)::after {
+    border-color: #f26249;
+}
+
+.info-block {
+    position: absolute;
+    top: -150px;
+    z-index: 10;
+    width: 100%;
+}
+.info-1,
+.info-2,
+.info-3 {
+    height: 200px;
+}
+hr {
+    height: 1px;
+}
+.info-1 {
+    background-color: #f26249;
+}
+.info-2 {
+    background-color: #878acf;
+}
+.info-3 {
+    background-color: #676cb5;
+}
+
+footer {
+    background-color: #676cb5;
+    color: #fff;
+}
+footer a {
+    color: #fff;
+}
+footer a:hover,
+.f-grafic {
+    color: #cfcef1;
+}
+footer p a {
+    margin: 30px 10px;
+}
+.footer-title {
+    float: left;
+    color: #cfcef1;
+}
+footer .faq {
+    display: block;
+    background-color: #f26249;
+    width: 160px;
+    height: 40px;
+    padding: 10px 10px;
+    border-radius: 6px;
+}
+footer .faq:hover {
+    background-color: #878acf;
+    color: #fff;
+    margin-top: 2px;
+}
+footer .down {
+    background-color: #878acf;
+}
+.med {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.med div {
+    float: left;
+    color: #676cb5;
+    padding: 20px 30px;
+}
+.med p {
+    padding-top: 10px;
+}
+.fio, .med a {
+    color: #676cb5;
+}
+.card-image figure img {
+    border-radius: 0%;
+}
+.table thead th, .otvet {
+    color: #676cb5;
+}
+
+.pagination-link.is-current {
+    background-color: #676cb5;
+    border-color: #676cb5;
+    color: #fff;
+}
+.button.is-link {
+    background-color: #676cb5;
+    border-color: transparent;
+    color: #fff;
+}
+.button.is-link.is-hovered, .button.is-link:hover {
+    background-color: #676cb5;
+    border-color: transparent;
+    color: #fff;
+}
+.sertificats div {
+    float: left;
+    padding: 20px 30px;
+}
+
+@media (max-width: 760px) {
+    .top-adress {
+        padding-left: 30px;
+    }
+    .top-grafic {
+        padding-left: 30px;
+    }
+    .title {
+        color: #333;
+        font-size: 17px;
+        margin: 0 10px;
+    }
+    .navbar-burger {
+        color: #4a4a4a;
+        border: #dbdbdb 1px solid;
+        height: 3.25rem;
+        width: 3.25rem;
+        margin: 0px 20px 10px auto;
+        border-radius: 4px;
+    }
+    .info-block {
+        position: relative;
+        top: 0;
+        padding: 0 25px;
+    }
+    .info-1,
+    .info-2,
+    .info-3 {
+        margin-bottom: 5px;
+    }
+    .med div {
+        padding: 10px 8px;
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <img src="/static/images/index-new.jpg" class="uk-hidden@l" alt="Частная клиника Андрос+, Ессентуки" uk-cover>
+    <img src="/static/images/index-new.jpg" class="uk-visible@l" alt="Частная клиника Андрос+, Ессентуки" uk-cover>
+    <div class="uk-section" uk-scrollspy="cls:uk-animation-fade">
+        <div class="page-left-right">
+            <div class="uk-grid-match uk-child-width-1-3@m"
+                 uk-scrollspy="target: > div > h2 > span; cls:uk-animation-fade; delay: 800" uk-grid>
+                <div><h2 class="uk-margin-remove-bottom uk-padding-remove uk-text-uppercase">Качественно <span
+                        class="check"
+                        uk-icon="icon: check; ratio: 2"></span>
+                </h2>
+                    <p style="font-size: 18px">Мы используем только современное оборудование. Мы используем только
+                        новейшие
+                        технологии лечения.</p>
+                </div>
+                <div><h2 class="uk-margin-remove-bottom uk-padding-remove uk-text-uppercase">Большой спектр услуг <span
+                        class="check" uk-icon="icon: check; ratio: 2"></span></h2>
+                    <p style="font-size: 18px">Полный спектр услуг и индивидуальный подход к каждому пациенту. Мы
+                        оказываем
+                        помощь по европейским стандартам.</p>
+                </div>
+                <div><h2 class="uk-margin-remove-bottom uk-padding-remove uk-text-uppercase">Квалифицированно <span
+                        class="check" uk-icon="icon: check; ratio: 2"></span></h2>
+                    <p style="font-size: 18px">В нашей клиние работают специалисты, непрерывно повышающие свою
+                        квалификацию.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-left-right">
+        <h2>Специалисты нашей клиники</h2>
+        <div class="uk-child-width-1-4@m uk-child-width-1-5@xl" uk-grid>
+            {% for doctor in doctors %}
+                <div>
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top">
+                            <img style="width:350px;height:220px" src="{{ doctor.photo.url }}"
+                                 alt="{{ doctor.title }}">
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">{{ doctor.title }}</h3>
+                            <p>{{ doctor.education }}</p>
+                            <p>{{ doctor.description }}</p>
+                        </div>
+                        {% if doctor.link %}
+                            <div class="uk-card-footer">
+                                <a href="{{ doctor.link }}" class="uk-button uk-button-text">Записаться на прием</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+{% endblock %}

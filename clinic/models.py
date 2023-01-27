@@ -24,6 +24,7 @@ class Doctors(models.Model):
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
     photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True)
+    link = models.URLField(blank=True)
 
     specialization = models.ManyToManyField(Specializations, verbose_name='Специальность', blank=True,
                                             related_name='Врачи')
@@ -32,7 +33,8 @@ class Doctors(models.Model):
         return self.title
 
     def image_tag(self):
-        return mark_safe('<img src="%s" width="100px" height="100px" />' % self.photo.url)
+        if self.photo:
+            return mark_safe('<img src="%s" width="100px" height="100px" />' % self.photo.url)
 
     image_tag.short_description = 'Фото'
 
