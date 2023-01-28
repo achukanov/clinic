@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="uk-container uk-container-expand top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><span>О клинике</span></li>
+        </ul>
+    </div>
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+        <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
+            <div>
+                <h1 class="uk-margin-medium-left">О клинике</h1>
+                <div class="page-left-right">
+                    <p>В Клинике «Андрос+» работает команда опытных врачей и медицинских сестёр, состоящая из десяти
+                        настоящих профессионалов своего дела, сплоченность которых помогает в достижении хороших
+                        результатов диагностики и лечения наших пациентов. Используя опыт и знания разных областей
+                        медицины, нам удается помочь пациенту в самых сложных ситуациях. </p>
+                    <p>В случае необходимости наши пациенты направляются на дообследование или лечение в Краевую
+                        клиническую больницу, Краевой онкологический диспансер, городской клинико-диагностический центр
+                        города Ставрополь, Северо-Западный эндокринологический центр, г Санкт - Петербург. </p>
+                    <p>Лечение в клинике «Андрос+» проводится по современным европейским стандартам, благодаря которым
+                        можно получить доступ к лучшим мировым методикам лечения, не уезжая за рубеж.</p>
+
+                    <hr>
+                    @include('soc')
+                    <hr>
+                </div>
+            </div>
+            <div uk-scrollspy="cls:uk-animation-fade" uk-cover-container>
+                <div class="uk-inline uk-overflow-hidden">
+                    <img src="/static/images/home.jpg" alt="Частная клиника Андрос+, Ессентуки" uk-cover>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

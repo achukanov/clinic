@@ -36,3 +36,16 @@ def contacts(request):
                       'mail': 'andros-008@mail.ru',
                       'date': '2023'
                   })
+
+
+def about(request):
+    return render(request,
+                  'clinic/about.html', {
+                      'request': request,
+                      'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
+                      'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
+                      'phone': '+7(988)8604300',
+                      'phone_title': '+7(988)860-43-00',
+                      'mail': 'andros-008@mail.ru',
+                      'date': '2023'
+                  })
