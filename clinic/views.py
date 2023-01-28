@@ -23,3 +23,16 @@ def index(request):
                       'booking': 'https://booking.medflex.ru/?user=d2264a28a42691145544d9fea59cf0c9',
                       'date': '2023'
                   })
+
+
+def contacts(request):
+    return render(request,
+                  'clinic/contacts.html', {
+                      'request': request,
+                      'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
+                      'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
+                      'phone': '+7(988)8604300',
+                      'phone_title': '+7(988)860-43-00',
+                      'mail': 'andros-008@mail.ru',
+                      'date': '2023'
+                  })
