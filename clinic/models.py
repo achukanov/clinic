@@ -5,6 +5,7 @@ from django.utils.html import mark_safe
 
 class Specializations(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
+    slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG', db_index=True)
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
 

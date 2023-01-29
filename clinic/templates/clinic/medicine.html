@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="uk-container uk-container-expand uk-margin-left uk-margin-remove-right top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><a href="/medicine">Лечение в клинике</a></li>
+        </ul>
+    </div>
+
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+        <div uk-grid>
+            <div class="uk-width-expand page-left-right">
+                <h1>Специализации клиники "Андрос+"</h1>
+
+                <p class="uk-text-lead">Не занимайтесь самолечением!</p>
+                <p>Позвоните нам и наши специалисты проконсультируют вас, подскажут, к врачу какой специализации вам
+                    нужно обратиться и запишут на любое удобное для вас время. Берегите свое здоровье!</p>
+
+                <ul class="uk-list uk-list-striped">
+                    {% for spec in specs %}
+                    <li><a href="/medicine/{{ spec.slug }}"><h3><span uk-icon="icon: arrow-right"></span>
+                        {{ spec.title }}</h3></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="uk-width-1-3@m">
+                <div class="page-left-right uk-margin-medium-top">
+                    <h5>Дополнительная информация:</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr id="map" class="uk-divider-icon">
+
+{% endblock %}

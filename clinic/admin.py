@@ -3,13 +3,14 @@ from .models import *
 
 
 class SpecializationsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sorting', 'active')
+    list_display = ('title', 'sorting', 'active', 'slug')
     list_filter = ('sorting', 'active')
     fields = ('title', 'sorting', 'active')
 
 
 class DoctorsAdmin(admin.ModelAdmin):
-    list_display = ('image_tag', 'title', 'description', 'sorting', 'active')
+    list_display = ('image_tag', 'title', 'education', 'description', 'sorting', 'active')
+    list_display_links = ('image_tag', 'title', 'education', 'description',)
     list_filter = ('sorting', 'active', 'specialization')
     search_fields = ('title', 'description', 'education')
 
