@@ -126,7 +126,7 @@ class Price(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     active = models.BooleanField(default=True, verbose_name='Активно')
 
-    specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
+    specialization = models.ManyToManyField(Specializations, verbose_name='Специальность')
 
     def __str__(self):
         return self.name

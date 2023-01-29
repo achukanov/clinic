@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="uk-container uk-container-expand top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><span>Прайс-лист</span></li>
+        </ul>
+    </div>
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+        <div class="uk-grid-match uk-child-width-1-1@s" uk-grid>
+            <div>
+                <h1 class="uk-margin-medium-left">Цены на услуги клиники</h1>
+                <div class="page-left-right">
+                    {% for spec in specs %}
+                        <h3>{{ spec.title }}</h3>
+                        <table class="uk-table uk-table-striped uk-table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Цена руб.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for price in prices %}
+                                {% if price.specialization.first == spec %}
+                                    <tr>
+                                        <td>{{ price.name }}</td>
+                                        <td>{{ price.cost }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                    <hr>
+                    {% include 'clinic/inc/_uptolike.html' %}
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

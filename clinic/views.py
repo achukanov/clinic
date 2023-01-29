@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Doctors, Specializations
+from .models import Doctors, Specializations, Price
 from django.http import HttpResponse
 
 
@@ -57,6 +57,23 @@ def medicine(request):
                   'clinic/medicine.html', {
                       'request': request,
                       'specs': specs,
+                      'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
+                      'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
+                      'phone': '+7(988)8604300',
+                      'phone_title': '+7(988)860-43-00',
+                      'mail': 'andros-008@mail.ru',
+                      'date': '2023'
+                  })
+
+
+def price(request):
+    prices = Price.objects.all()
+    specs = Specializations.objects.all()
+    return render(request,
+                  'clinic/prices.html', {
+                      'request': request,
+                      'specs': specs,
+                      'prices': prices,
                       'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
                       'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
                       'phone': '+7(988)8604300',

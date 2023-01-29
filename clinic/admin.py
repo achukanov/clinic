@@ -37,9 +37,9 @@ class QuestionsAdmin(admin.ModelAdmin):
 
 
 class PriceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cost', 'sorting', 'active', 'specialization')
-    list_display_links = ('name', 'cost', 'sorting', 'active', 'specialization')
-    list_filter = ('cost', 'sorting', 'active', 'specialization')
+    list_display = ('name', 'cost', 'sorting', 'active')
+    list_display_links = ('name', 'cost', 'sorting', 'active')
+    list_filter = ('cost', 'sorting', 'active')
     search_fields = ('name',)
 
 
