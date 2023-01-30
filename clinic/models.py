@@ -8,6 +8,7 @@ class Specializations(models.Model):
     slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG', db_index=True)
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
+    text = models.TextField(verbose_name='Текст', blank=False)
 
     def __str__(self):
         return self.title
@@ -20,8 +21,9 @@ class Specializations(models.Model):
 
 class Doctors(models.Model):
     title = models.CharField(max_length=50, verbose_name='ФИО')
-    description = models.CharField(max_length=250, verbose_name='Описание', blank=True)
-    education = models.CharField(max_length=250, verbose_name='Образование', blank=True)
+    description = models.TextField(verbose_name='Дополнение', blank=True)
+    education = models.TextField(verbose_name='Направление', blank=True)
+    education_full = models.TextField(verbose_name='Образование', blank=True)
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
     photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True)
@@ -50,6 +52,7 @@ class Certificates(models.Model):
     photo = models.ImageField(upload_to='certificates/', verbose_name='Фото', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     active = models.BooleanField(default=True, verbose_name='Активно')
+    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
 
     doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Доктор')
 
@@ -99,14 +102,13 @@ class Articles(models.Model):
 
 
 class Questions(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Имя')
+    name = models.CharField(max_length=50, verbose_name='Имя', blank=False)
     text = models.TextField(verbose_name='Вопрос', blank=False)
     answer = models.TextField(verbose_name='Ответ', blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-    old_date = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name='Дата на старом сайте', blank=True)
-    active = models.BooleanField(default=True, verbose_name='Активен')
-    is_answered = models.BooleanField(default=False, verbose_name='Есть ответ')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления', blank=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения', blank=True)
+    active = models.BooleanField(default=True, verbose_name='Активен', blank=True)
+    is_answered = models.BooleanField(default=False, verbose_name='Есть ответ', blank=True)
 
     specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
 

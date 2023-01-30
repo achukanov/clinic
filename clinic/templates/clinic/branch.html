@@ -1,0 +1,195 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="uk-container uk-container-expand uk-margin-left uk-margin-remove-right top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><a href="/medicine">Лечение в клинике</a></li>
+        </ul>
+    </div>
+
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+    <div uk-grid>
+        <div class="uk-width-expand page-left-right">
+            <h1>{{ spec.title }}</h1>
+
+            {{ spec.text }}
+
+            {% for doctor in doctors %}
+                <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                    <div class="uk-card-media-left uk-cover-container">
+                        <img src="{{ doctor.photo.url }}" alt="{{ doctor.title }}" uk-cover>
+                        <canvas width="600" height="400"></canvas>
+                    </div>
+                    <div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">{{ doctor.title }}</h3>
+                            <p>{{ doctor.education }}</p>
+                            <p>{{ doctor.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <h3>Образование</h3>
+                <div uk-lightbox="animation: slide">
+                    <ul class="uk-thumbnav">
+                        {% for certificate in certificates %}
+                            {% if certificate.doctor == doctor %}
+                                <li>
+                                    <a class="uk-inline" href="{{ certificate.photo.url }}" data-caption="Сертификат">
+                                        <img style="width:100px;height:100px" src="{{ certificate.photo.url }}"
+                                             alt="Сертификат">
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {#            {% endfor %}#}
+                    </ul>
+                </div>
+                {{ doctor.education_full }}
+                <hr>
+                {{ doctor.education_full }}
+            {% endfor %}
+
+
+            {#        @if($prices->count() != '0')#}
+            {#        <h3>Цены на услуги</h3>#}
+            {#        <table class="uk-table uk-table-striped uk-table-hover">#}
+            {#            <thead>#}
+            {#                <tr>#}
+            {#                    <th>Название</th>#}
+            {#                    <th>Цена руб.</th>#}
+            {#                </tr>#}
+            {#            </thead>#}
+            {#            @foreach ($prices as $price)#}
+            {#            <tr>#}
+            {#                <td>{{ $price->title }}</td>#}
+            {#                <td>{{ $price->price }}</td>#}
+            {#            </tr>#}
+            {#            @endforeach#}
+            {#        </table>#}
+            {#        @endif#}
+
+            <h3>Вопросы и ответы</h3>
+            <ul uk-accordion="duration:800">
+                <li>
+                    <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default" href="#"><span
+                            uk-icon="icon: list"></span> Задать вопрос</a>
+                    <div class="uk-accordion-content">
+
+
+
+
+
+                        <form method="POST" action="{% url 'add-question' %}" class="uk-form-stacked">
+                            {% csrf_token %}
+                            <div class="uk-margin">
+                                <div class="uk-form-controls">
+                                    <input id="id_name" type="text" class="uk-input uk-form-large uk-box-shadow-medium" name="name"
+                                           placeholder="* Ваше имя" required/>
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <textarea id="id_text" class="uk-textarea uk-form-large uk-box-shadow-medium" rows="5" name="text"
+                                          placeholder="* Ваш вопрос..." required></textarea>
+                                <input id="id_specialization" hidden="hidden" name="specialization" value="{{ spec }}">
+                                <p class="uk-margin-medium-top">
+                                <div id="spinbutton" uk-spinner></div>
+                                <button id="sendbutton"
+                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"
+                                        type="submit">Отправить...
+                                </button>
+                                </p>
+                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>
+                                <!-- TODO: Добавить Каптчу -->
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </li>
+            </ul>
+
+            {#                    @foreach($questions as $question)#}
+            {#                        <p><span class="uk-text-muted uk-text-small">{{$question->created_at}}</span> Вопрос от <b class="uk-text-muted">{{$question->name}}</b>:<br>#}
+            {#                        {!!$question->vopros!!}</p>#}
+            {#                        <p><b>Ответ:</b> {!!$question->otvet!!}</p>#}
+            {#                        <hr>#}
+            {#                    @endforeach#}
+
+            {#                        {{ $questions->links() }}#}
+            {##}
+            {##}
+            {#                                @if($mediks->count() != '0')#}
+            {#                                <h3>Материалы по теме</h3>#}
+            {#                                <ul class="uk-list uk-list-striped">#}
+            {#                                    @foreach ($mediks as $medik)#}
+            {#                                        <li><img style="width:100px;height:80px" class="uk-margin-medium-right" src="/storage/{{ $medik->img }}" alt="{{ $medik->title }}">#}
+            {#                                            <span class="uk-h3"> <a class="uk-text-muted" href="/medicine/post/{{ $medik->slug }}">{{ $medik->title }}</a></span>#}
+            {#                                        </li>#}
+            {#                                    @endforeach#}
+            {#                                    </ul>#}
+            {#                                @endif#}
+            {#                                </div>#}
+            {#                                <div class="uk-width-1-3@m">#}
+            {#                                    <div class="page-left-right uk-margin-medium-top">#}
+            {#                                        @if($questions_new->count() != '0')#}
+            {#                                        <h3>Ожидают ответа</h3>#}
+            {#                                    @if (Session::has('message'))#}
+            {#                                         <div class="uk-alert uk-alert-success" data-uk-alert>#}
+            {#                                             <a href="" class="uk-alert-close uk-close"></a>#}
+            {#                                             <p>{{ Session::get('message') }}</p>#}
+            {#                                         </div>#}
+            {#                                     @endif#}
+            {#                                    @foreach($questions_new as $q_new)#}
+            {#                                        <p class="uk-text-small uk-text-muted">{{$q_new->created_at}}</p>#}
+            {#                                        <b>{{$q_new->name}}</b> | {{$q_new->vopros}}<br>#}
+            {#                                        <a href="" class="uk-text-small uk-text-muted" uk-toggle="target: #toggle-{{$q_new->id}}; animation: uk-animation-fade">Ответ</a>#}
+            {#                                        <div id="toggle-{{$q_new->id}}" style="" aria-hidden="true" hidden="">#}
+            {#                                            <form method="POST" class="uk-form-stacked" action="/otvet">#}
+            {#                                                {{ csrf_field() }}#}
+            {#                                                <div class="uk-margin-small-top">#}
+            {#                                                    <textarea  class="uk-textarea uk-form-large uk-box-shadow-medium" rows="5" name="otvet" required>Здравствуйте, {{$q_new->name}}!</textarea>#}
+            {#                                                    <input hidden="hidden" name="id" value="{{$q_new->id}}">#}
+            {#                                                    <input hidden="hidden" name="page" value="{{$slug}}">#}
+            {#                                                    <input type="text" class="uk-input uk-box-shadow-medium uk-margin-small-top" name="phone" placeholder="* Укажите код" />#}
+            {#                                                    <p class="uk-margin-small-top"><button class="uk-button uk-button-default uk-box-shadow-medium" type="submit">Отправить...</button></p>#}
+            {#                                                </div>#}
+            {#                                           </form>#}
+            {#                                        </div>#}
+            {#                                        <hr>#}
+            {#                                    @endforeach#}
+            {#                                        @endif#}
+            {#        </div>#}
+        </div>
+    </div>
+    {#</div>#}
+    <hr id="map" class="uk-divider-icon">
+
+{% endblock %}
+
+
+
+{#<form method="POST" action="{% url 'add-question' %}" class="uk-form-stacked">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="uk-margin">#}
+{#                                <div class="uk-form-controls">#}
+{#                                    <input type="text" class="uk-input uk-form-large uk-box-shadow-medium" name="name"#}
+{#                                           placeholder="* Ваше имя" required/>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="uk-margin">#}
+{#                                <textarea class="uk-textarea uk-form-large uk-box-shadow-medium" rows="5" name="text"#}
+{#                                          placeholder="* Ваш вопрос..." required></textarea>#}
+{#                                <input hidden="hidden" name="specialization" value="{{ spec }}">#}
+{#                                <p class="uk-margin-medium-top">#}
+{#                                <div id="spinbutton" uk-spinner></div>#}
+{#                                <button id="sendbutton"#}
+{#                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"#}
+{#                                        type="submit">Отправить...#}
+{#                                </button>#}
+{#                                </p>#}
+{#                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>#}
+{#                                <!-- TODO: Добавить Каптчу -->#}
+{#                            </div>#}
+{#                        </form>#}

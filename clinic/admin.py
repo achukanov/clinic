@@ -3,9 +3,11 @@ from .models import *
 
 
 class SpecializationsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sorting', 'active', 'slug')
+    list_display = ('title', 'sorting', 'active')
+    list_display_links = ('title', 'sorting', 'active')
     list_filter = ('sorting', 'active')
-    fields = ('title', 'sorting', 'active')
+    fields = ('title', 'sorting', 'active', 'text', 'slug')
+    readonly_fields = ('slug',)
 
 
 class DoctorsAdmin(admin.ModelAdmin):
@@ -14,10 +16,9 @@ class DoctorsAdmin(admin.ModelAdmin):
     list_filter = ('sorting', 'active', 'specialization')
     search_fields = ('title', 'description', 'education')
 
-
 class CertificatesAdmin(admin.ModelAdmin):
-    list_display = ('image_tag', 'title', 'active', 'created_at', 'doctor')
-    list_display_links = ('title',)
+    list_display = ('image_tag', 'title', 'active', 'created_at', 'doctor', 'sorting')
+    list_display_links = ('image_tag', 'title',)
     list_filter = ('active', 'doctor')
     search_fields = ('title',)
 

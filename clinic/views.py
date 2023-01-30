@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from .models import Doctors, Specializations, Price
-from django.http import HttpResponse
-
+from django.shortcuts import render, redirect
+from .models import Doctors, Specializations, Price, Certificates, Questions
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import QuestionForm
 
 # TODO: request, title, description, phone(+7(988)8604300), phone_title(+7(988)860-43-00),
 # TODO: mail(andros-008@mail.ru)
@@ -81,3 +81,56 @@ def price(request):
                       'mail': 'andros-008@mail.ru',
                       'date': '2023'
                   })
+
+
+def laborators(request):
+    return render(request, 'clinic/laborators.html')
+
+
+def branch(request, slug):
+    form = QuestionForm()
+    spec = Specializations.objects.filter(slug=slug).first()
+    doctors = Doctors.objects.filter(specialization=spec)
+    certificates = Certificates.objects.filter(doctor__in=doctors)
+    return render(request,
+                  'clinic/branch.html', {
+                      'request': request,
+                      'spec': spec,
+                      'doctors': doctors,
+                      'certificates': certificates,
+                      'form': form
+                  })
+
+
+def add_question(request):
+    if request.method == 'POST':
+        spec = request.POST['specialization']
+        spec_obj = Specializations.objects.filter(title=spec).first()
+        name = request.POST['name']
+        print(name, 'name----------------', type(name))
+        print(spec_obj, 'spec_obj----------------', type(spec_obj), spec_obj.title)
+        print(spec, 'spec----------------', type(spec))
+
+        text = request.POST['text']
+        form = QuestionForm(initial={'name': name, 'text': text, 'specialization': spec_obj})
+        print(form.data, form.fields)
+        print('---------------------')
+        # form.name = request.POST['name']
+        # form.text = request.POST['text']
+        # form.specialization = spec_obj
+        # print(form.data, form.fields)
+        # spec = form.fields['specialization']
+        # print(spec, 'spec-=---')
+        # print(form.data)
+        if form.is_valid():
+            print('valid --------------------------------------')
+            print(form)
+            # question = Questions.objects.create(**form.cleaned_data)
+            question = form.save()
+            return redirect(medicine)
+        else:
+            print('not valid-------------------------------')
+            question = form.save()
+            return redirect(medicine)
+    #     form = QuestionForm()
+    # return render(request.META.get('HTTP_REFERER'), {'form': form})
