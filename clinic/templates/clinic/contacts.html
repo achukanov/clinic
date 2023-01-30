@@ -1,37 +1,38 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="uk-container uk-container-expand top-page">
-    <ul class="uk-breadcrumb uk-heading-divider">
-        <li><a href="/">На главную</a></li>
-        <li><span>Контакты и координаты</span></li>
-    </ul>
-</div>
-<div class="uk-section uk-padding-remove uk-margin-medium-top">
-    <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
-        <div>
-            <h1 class="uk-margin-medium-left">Наши контакты</h1>
-            <div class="uk-child-width-1-1@s uk-grid-match" uk-scrollspy="target: > div; cls:uk-animation-fade" uk-grid>
-                <div>
-                    <div class="uk-card  uk-card-default uk-card-hover uk-card-body">
-                        <h5 class="uk-heading-bullet">{{ adress }}</h5>
-                        <a href="tel:+7(988)8604300" class="uk-text-large">+7 (988) 860-43-00</a><br>
-                        <p>E-mail: <a href="mailto:{{ mail }}">{{ mail }}</a></p>
-                        <hr>
-                        <h3>График работы</h3>
-                        <p>Понедельник- пятница с 8:00 до 19:00.<br>
-                            Суббота с 9:00 до 18:00<br>
-                            Воскресенье с 9:00 до 18:00</p>
-                        <hr>
-                        {% include 'clinic/inc/_uptolike.html' %}
+    <div class="uk-container uk-container-expand top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><span>Контакты и координаты</span></li>
+        </ul>
+    </div>
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+        <div class="uk-grid-match uk-child-width-1-2@m" uk-grid>
+            <div>
+                <h1 class="uk-margin-medium-left">Наши контакты</h1>
+                <div class="uk-child-width-1-1@s uk-grid-match" uk-scrollspy="target: > div; cls:uk-animation-fade"
+                     uk-grid>
+                    <div>
+                        <div class="uk-card  uk-card-default uk-card-hover uk-card-body">
+                            <h5 class="uk-heading-bullet">{{ adress }}</h5>
+                            <a href="tel:+7(988)8604300" class="uk-text-large">+7 (988) 860-43-00</a><br>
+                            <p>E-mail: <a href="mailto:{{ mail }}">{{ mail }}</a></p>
+                            <hr>
+                            <h3>График работы</h3>
+                            <p>Понедельник- пятница с 8:00 до 19:00.<br>
+                                Суббота с 9:00 до 18:00<br>
+                                Воскресенье с 9:00 до 18:00</p>
+                            <hr>
+                            {% include 'clinic/inc/_uptolike.html' %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div uk-scrollspy="cls:uk-animation-fade">
-            <script type="text/javascript" charset="utf-8" async
-                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aca82352c907bfd5a49fdab66943771b5492678c08ad0c1af201f6bba4be2fbcb&amp;width=100%25&amp;height=444&amp;lang=ru_RU&amp;scroll=true"></script>
+            <div uk-scrollspy="cls:uk-animation-fade">
+                <script type="text/javascript" charset="utf-8" async
+                        src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A720d54a36cfe1792108725ef85c62a3d67c8a5a6901c92554661c69de8d8549b&amp;width=100%25&amp;height=444&amp;lang=ru_RU&amp;scroll=true"></script>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
