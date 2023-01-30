@@ -137,3 +137,4 @@ class Price(models.Model):
         verbose_name = 'Прайс'
         verbose_name_plural = 'Прайс'
         ordering = ['sorting']
+

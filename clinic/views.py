@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Doctors, Specializations, Price, Certificates, Questions
+from custom.models import Maps
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import QuestionForm
 
@@ -26,9 +27,11 @@ def index(request):
 
 
 def contacts(request):
+    map_link = Maps.objects.filter(active=True).first()
     return render(request,
                   'clinic/contacts.html', {
                       'request': request,
+                      'map_link': map_link.title,
                       'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
                       'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
                       'phone': '+7(988)8604300',
