@@ -95,10 +95,11 @@ def branch(request, slug):
     spec = Specializations.objects.filter(slug=slug).first()
     doctors = Doctors.objects.filter(specialization=spec)
     certificates = Certificates.objects.filter(doctor__in=doctors)
+    print(spec.id)
     return render(request,
                   'clinic/branch.html', {
                       'request': request,
-                      'spec': spec,
+                      'spec': spec.id,
                       'doctors': doctors,
                       'certificates': certificates,
                       'form': form
@@ -107,12 +108,12 @@ def branch(request, slug):
 
 def add_question(request):
     if request.method == 'POST':
-        spec = request.POST['specialization']
-        spec_obj = Specializations.objects.filter(title=spec).first()
+        spec_obj = request.POST['specialization']
+        # spec_obj = Specializations.objects.filter(title=spec).first()
         name = request.POST['name']
         print(name, 'name----------------', type(name))
-        print(spec_obj, 'spec_obj----------------', type(spec_obj), spec_obj.title)
-        print(spec, 'spec----------------', type(spec))
+        print(spec_obj, 'spec_obj----------------', type(spec_obj))
+        # print(spec, 'spec----------------', type(spec))
 
         text = request.POST['text']
         form = QuestionForm(initial={'name': name, 'text': text, 'specialization': spec_obj})

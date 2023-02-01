@@ -45,7 +45,6 @@
                         {#            {% endfor %}#}
                     </ul>
                 </div>
-                {{ doctor.education_full }}
                 <hr>
                 {{ doctor.education_full }}
             {% endfor %}
@@ -91,7 +90,7 @@
                             <div class="uk-margin">
                                 <textarea id="id_text" class="uk-textarea uk-form-large uk-box-shadow-medium" rows="5" name="text"
                                           placeholder="* Ваш вопрос..." required></textarea>
-                                <input id="id_specialization" hidden="hidden" name="specialization" value="{{ spec }}">
+                                <input id="id_specialization" hidden="hidden" name="specialization" value="13">
                                 <p class="uk-margin-medium-top">
                                 <div id="spinbutton" uk-spinner></div>
                                 <button id="sendbutton"
