@@ -1,6 +1,5 @@
 {% load static %}
 <header class="uk-cover-container">
-    <!-- Липкая панель -->
     <div class="index-fon-top" uk-sticky>
         <div class="uk-position-top-left uk-padding-remove uk-flex top-set-left">
             <a href="" title="Открыть меню" uk-toggle="target: #offcanvas-nav-primary">
@@ -9,11 +8,13 @@
             <div id="offcanvas-nav-primary" uk-offcanvas="overlay: true">
                 <nav class="uk-offcanvas-bar uk-flex uk-flex-column">
                     <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
-                        <li><a href="/" target="_self"><span class="uk-margin-small-right" uk-icon="icon: home"></span> На
+                        <li><a href="/" target="_self"><span class="uk-margin-small-right" uk-icon="icon: home"></span>
+                            На
                             главную <span uk-icon="chevron-right"></span></a></li>
                         <li><a href="/about" target="_self"> О клинике <span uk-icon="chevron-right"></span></a></li>
                         <li><a href="/medicine" target="_self"> Врачи <span uk-icon="chevron-right"></span></a></li>
-                        <li><a href="/laborators" target="_self"> Лаборатория <span uk-icon="chevron-right"></span></a></li>
+                        <li><a href="/laborators" target="_self"> Лаборатория <span uk-icon="chevron-right"></span></a>
+                        </li>
                         <li><a href="/prices" target="_self"> Цены <span uk-icon="chevron-right"></span></a></li>
                         <li><a href="/contacts" target="_self"> Контакты <span uk-icon="chevron-right"></span></a></li>
                     </ul>
@@ -26,10 +27,9 @@
         </div>
         <div class="uk-position-top-right uk-padding-remove uk-flex uk-flex-right top-set-right">
 
-            <a href="tel:{{ phone }}" title="{{ phone_title }}">
-                {#      <a href="tel:+7(988)8604300" title="+7(988)860-43-00">#}
+            <a href="tel:{{ phone }}" title="{{ phone }}">
                 <div class="top"><i class="flaticon-phone-1" style="font-size:30px"></i> <span
-                        class="uk-margin-small-left uk-visible@s">+7 (988) 860-43-00</span></div>
+                        class="uk-margin-small-left uk-visible@s">{{ phone }}</span></div>
             </a>
             <a href="/contacts#map" title="Адреc">
                 <div class="top"><i class="flaticon-pin" style="font-size:30px"></i></div>
@@ -38,9 +38,10 @@
                 <div class="top"><i class="flaticon-mail" style="font-size:30px"></i></div>
             </a>
             <a href="{{ booking }}" title="Записаться на прием">
-            <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i class="flaticon-hotel"
-                                                                                                 style="font-size:35px"></i>
-                <span class="uk-margin-small-left uk-visible@l">Запись на<br>прием</span></div>
+                <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
+                        class="flaticon-hotel"
+                        style="font-size:35px"></i>
+                    <span class="uk-margin-small-left uk-visible@l">Запись на<br>прием</span></div>
             </a>
         </div>
         <div>
@@ -50,7 +51,4 @@
             </div>
         </div>
     </div>
-    <!-- Конец липкой панели -->
-{#    {% include 'inc/_video.html' %}#}
-{#    @yield('video')#}
 </header>

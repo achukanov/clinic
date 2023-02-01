@@ -7,12 +7,11 @@
     <div uk-slideshow="autoplay: true; autoplay-interval: 6000">
 
         <ul class="uk-slideshow-items" uk-height-viewport="min-height: 100Vh">
+            {% for slide in slider %}
             <li>
-                <img src="/static/images/index-new.jpg" alt="" uk-cover>
+                <img src="{{ slide.photo.url }}" alt="" uk-cover>
             </li>
-            <li>
-                <img src="/static/images/index-new.jpg" alt="" uk-cover>
-            </li>
+            {% endfor %}
         </ul>
     <ul class="uk-slideshow-nav uk-dotnav"></ul>
 

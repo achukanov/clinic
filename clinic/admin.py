@@ -16,6 +16,7 @@ class DoctorsAdmin(admin.ModelAdmin):
     list_filter = ('sorting', 'active', 'specialization')
     search_fields = ('title', 'description', 'education')
 
+
 class CertificatesAdmin(admin.ModelAdmin):
     list_display = ('image_tag', 'title', 'active', 'created_at', 'doctor', 'sorting')
     list_display_links = ('image_tag', 'title',)
