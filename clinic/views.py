@@ -4,6 +4,8 @@ from custom.models import IndexSlider
 from custom.models import Maps
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import QuestionForm
+from django import forms
+
 
 # TODO: request, title, description, phone(+7(988)8604300), phone_title(+7(988)860-43-00),
 # TODO: mail(andros-008@mail.ru)
@@ -11,7 +13,7 @@ from .forms import QuestionForm
 
 
 def index(request):
-    doctors = Doctors.objects.order_by('-sorting')
+    doctors = Doctors.objects.filter(active=True).order_by('-sorting')
     slider = IndexSlider.objects.filter(active=True).order_by('-sorting')
     return render(request,
                   'clinic/index.html', {
@@ -38,7 +40,7 @@ def about(request):
 
 
 def medicine(request):
-    specs = Specializations.objects.all()
+    specs = Specializations.objects.filter(active=True)
     return render(request,
                   'clinic/medicine.html', {
                       'request': request,
@@ -47,8 +49,8 @@ def medicine(request):
 
 
 def price(request):
-    prices = Price.objects.all()
-    specs = Specializations.objects.all()
+    prices = Price.objects.filter(active=True).order_by('-sorting')
+    specs = Specializations.objects.filter(active=True)
     return render(request,
                   'clinic/prices.html', {
                       'request': request,
@@ -62,50 +64,28 @@ def laborators(request):
 
 
 def branch(request, slug):
-    form = QuestionForm()
     spec = Specializations.objects.filter(slug=slug).first()
-    doctors = Doctors.objects.filter(specialization=spec)
-    certificates = Certificates.objects.filter(doctor__in=doctors)
-    print(spec.id)
+    doctors = Doctors.objects.filter(specialization=spec).filter(active=True)
+    certificates = Certificates.objects.filter(doctor__in=doctors, active=True).order_by('-sorting')
+    prices = Price.objects.filter(specialization=spec, active=True).order_by('-sorting')
+    questions = Questions.objects.filter(is_answered=True).order_by('-created_at')
+    form = QuestionForm(initial={'specialization': spec})
     return render(request,
                   'clinic/branch.html', {
                       'request': request,
-                      'spec': spec.id,
+                      'spec': spec,
                       'doctors': doctors,
                       'certificates': certificates,
+                      'prices': prices,
+                      'questions': questions,
                       'form': form
                   })
 
 
+# TODO: совместить branch и add_question
 def add_question(request):
     if request.method == 'POST':
-        spec_obj = request.POST['specialization']
-        # spec_obj = Specializations.objects.filter(title=spec).first()
-        name = request.POST['name']
-        print(name, 'name----------------', type(name))
-        print(spec_obj, 'spec_obj----------------', type(spec_obj))
-        # print(spec, 'spec----------------', type(spec))
-
-        text = request.POST['text']
-        form = QuestionForm(initial={'name': name, 'text': text, 'specialization': spec_obj})
-        print(form.data, form.fields)
-        print('---------------------')
-        # form.name = request.POST['name']
-        # form.text = request.POST['text']
-        # form.specialization = spec_obj
-        # print(form.data, form.fields)
-        # spec = form.fields['specialization']
-        # print(spec, 'spec-=---')
-        # print(form.data)
+        form = QuestionForm(request.POST)
         if form.is_valid():
-            print('valid --------------------------------------')
-            print(form)
-            # question = Questions.objects.create(**form.cleaned_data)
-            question = form.save()
-            return redirect(medicine)
-        else:
-            print('not valid-------------------------------')
-            question = form.save()
-            return redirect(medicine)
-    #     form = QuestionForm()
-    # return render(request.META.get('HTTP_REFERER'), {'form': form})
+            form.save()
+    return redirect('medicine')

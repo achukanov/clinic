@@ -1,6 +1,15 @@
 from django.db import models
 from autoslug import AutoSlugField
 from django.utils.html import mark_safe
+from os.path import splitext
+from uuid import uuid4
+from django.core.files.storage import FileSystemStorage
+
+
+class UUIDFileStorage(FileSystemStorage):
+    def get_available_name(self, name, max_length=None):
+        _, ext = splitext(name)
+        return uuid4().hex + ext
 
 
 class Specializations(models.Model):
@@ -26,7 +35,7 @@ class Doctors(models.Model):
     education_full = models.TextField(verbose_name='Образование', blank=True)
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
-    photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True)
+    photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True, storage=UUIDFileStorage())
     link = models.URLField(blank=True)
 
     specialization = models.ManyToManyField(Specializations, verbose_name='Специальность', blank=True,
@@ -48,8 +57,8 @@ class Doctors(models.Model):
 
 
 class Certificates(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Название')
-    photo = models.ImageField(upload_to='certificates/', verbose_name='Фото', blank=True)
+    title = models.CharField(max_length=50, verbose_name='Название', blank=True)
+    photo = models.ImageField(upload_to='certificates/', verbose_name='Фото', blank=False, storage=UUIDFileStorage())
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     active = models.BooleanField(default=True, verbose_name='Активно')
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
@@ -77,7 +86,7 @@ class Articles(models.Model):
     title = models.CharField(max_length=255, unique=True, verbose_name='Заголовок', blank=False)
     slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG')
     text = models.TextField(verbose_name='Текст', blank=False)
-    photo = models.ImageField(upload_to='articles/', verbose_name='Изображение', blank=True)
+    photo = models.ImageField(upload_to='articles/', verbose_name='Изображение', blank=True, storage=UUIDFileStorage())
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     active = models.BooleanField(default=True, verbose_name='Активно')
@@ -137,4 +146,3 @@ class Price(models.Model):
         verbose_name = 'Прайс'
         verbose_name_plural = 'Прайс'
         ordering = ['sorting']
-

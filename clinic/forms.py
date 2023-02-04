@@ -1,17 +1,23 @@
 from django import forms
-from .models import Questions, Specializations
+from .models import Questions
 
 
 class QuestionForm(forms.ModelForm):
-    name = forms.CharField()
-    text = forms.CharField()
-    specialization = forms.ModelChoiceField(queryset=Specializations.objects.all())
-
-    #     queryset=Questions.objects.all(),
-    #     widget=forms.MultipleHiddenInput())
 
     class Meta:
         model = Questions
-        # fields = ['name', 'text']
-        # fields = ['name', 'text', 'specialization',]
-        fields = ("name", "text", "specialization",)
+        fields = ("name", "text", "specialization")
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'uk-input uk-form-large uk-box-shadow-medium',
+                'id': 'id_name',
+                'placeholder': 'Имя---',
+                'name': 'name'}),
+            'text': forms.Textarea(attrs={
+                'class': 'uk-textarea uk-form-large uk-box-shadow-medium',
+                'id': 'id_text',
+                'placeholder': 'Текст---',
+                'name': 'text',
+                'rows': 5}),
+            'specialization': forms.HiddenInput()
+        }

@@ -32,6 +32,7 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 
 class QuestionsAdmin(admin.ModelAdmin):
+    # TODO: ограничить число символов в предпросмотре
     list_display = ('name', 'text', 'answer', 'created_at', 'updated_at', 'active', 'is_answered', 'specialization')
     list_display_links = ('name', 'text', 'answer', 'created_at', 'updated_at', 'specialization', )
     list_filter = ('active', 'is_answered', 'specialization')
