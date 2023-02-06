@@ -68,7 +68,7 @@ def branch(request, slug):
     doctors = Doctors.objects.filter(specialization=spec).filter(active=True)
     certificates = Certificates.objects.filter(doctor__in=doctors, active=True).order_by('-sorting')
     prices = Price.objects.filter(specialization=spec, active=True).order_by('-sorting')
-    questions = Questions.objects.filter(is_answered=True).order_by('-created_at')
+    questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
     form = QuestionForm(initial={'specialization': spec})
     return render(request,
                   'clinic/branch.html', {
@@ -89,3 +89,13 @@ def add_question(request):
         if form.is_valid():
             form.save()
     return redirect('medicine')
+
+
+def doctor(request, slug, id):
+    doc = Doctors.objects.filter(pk=int(id)).first()
+    print(id, doc)
+    return render(request,
+                  'clinic/doctor.html', {
+                      'request': request,
+                      'doc': doc
+                  })
