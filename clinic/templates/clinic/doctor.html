@@ -1,17 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main.html' %}
 
-{{ doc.title }}
-{{ doc.education }}
-{{ doc.education_full }}
-{{ doc.pk }}
-{{ video }}
+{% block content %}
+    <div class="uk-container uk-container-expand uk-margin-left uk-margin-remove-right top-page">
+        <ul class="uk-breadcrumb uk-heading-divider">
+            <li><a href="/">На главную</a></li>
+            <li><a href="/medicine">Лечение в клинике</a></li>
+        </ul>
+    </div>
 
+    <div class="uk-section uk-padding-remove uk-margin-medium-top">
+        <div uk-grid>
+            <div class="uk-width-expand page-left-right">
+                <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                        <div class="uk-card-media-left uk-cover-container">
+                            <img src="{{ doctor.photo.url }}" alt="{{ doctor.title }}" uk-cover>
+                            <canvas width="600" height="400"></canvas>
+                        </div>
+                        <div>
+                            <div class="uk-card-body">
+                                <h3 class="uk-card-title">
+                                    <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
+                                </h3>
+                                <p>{{ doctor.education }}</p>
+                                <p>{{ doctor.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% if doctor.education_full %}
+                        <h3>Образование</h3>
+                        <p>
+                            {{ doctor.education_full }}
+                        </p>
+                    {% endif %}
+                    <div uk-lightbox="animation: slide">
+                        <ul class="uk-thumbnav">
+                            {% for certificate in certificates %}
+                                {% if certificate.doctor == doctor %}
+                                    <li>
+                                        <a class="uk-inline" href="{{ certificate.photo.url }}"
+                                           data-caption="Сертификат">
+                                            <img style="width:100px;height:100px" src="{{ certificate.photo.url }}"
+                                                 alt="Сертификат">
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div uk-lightbox="animation: slide">
+                        <ul class="uk-thumbnav">
+                            {% for video in videos %}
 
-</body>
-</html>
+                                <iframe width="600" height="400" src="https://www.youtube.com/embed/{{ video.link }}?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <hr id="map" class="uk-divider-icon">
+
+{% endblock %}

@@ -12,6 +12,30 @@
             <div class="uk-width-expand page-left-right">
                 <h1>{{ spec.title }}</h1>
                 {{ spec.text }}
+                {% for disease in diseases %}
+                    <ul uk-accordion="duration:800">
+                        <li>
+                            <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default"
+                               href="#"><span
+                                    uk-icon="icon: list"></span> {{ disease.title }} </a>
+                            <div class="uk-accordion-content">
+                                {{ disease.text }}
+                                <br>
+                                {% for video in videos %}
+                                    {% if video.disease == disease %}
+                                        <iframe width="600" height="400"
+                                                src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                allowfullscreen></iframe>
+                                    {% endif %}
+                                {% endfor %}
+                                <hr>
+                            </div>
+                        </li>
+                    </ul>
+                {% endfor %}
+
                 {% for doctor in doctors %}
                     <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
                         <div class="uk-card-media-left uk-cover-container">
@@ -28,27 +52,27 @@
                             </div>
                         </div>
                     </div>
-                    {% if doctor.education_full %}
-                        <h3>Образование</h3>
-                        <p>
-                            {{ doctor.education_full }}
-                        </p>
-                    {% endif %}
-                    <div uk-lightbox="animation: slide">
-                        <ul class="uk-thumbnav">
-                            {% for certificate in certificates %}
-                                {% if certificate.doctor == doctor %}
-                                    <li>
-                                        <a class="uk-inline" href="{{ certificate.photo.url }}"
-                                           data-caption="Сертификат">
-                                            <img style="width:100px;height:100px" src="{{ certificate.photo.url }}"
-                                                 alt="Сертификат">
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    {#                    {% if doctor.education_full %}#}
+                    {#                        <h3>Образование</h3>#}
+                    {#                        <p>#}
+                    {#                            {{ doctor.education_full }}#}
+                    {#                        </p>#}
+                    {#                    {% endif %}#}
+                    {#                    <div uk-lightbox="animation: slide">#}
+                    {#                        <ul class="uk-thumbnav">#}
+                    {#                            {% for certificate in certificates %}#}
+                    {#                                {% if certificate.doctor == doctor %}#}
+                    {#                                    <li>#}
+                    {#                                        <a class="uk-inline" href="{{ certificate.photo.url }}"#}
+                    {#                                           data-caption="Сертификат">#}
+                    {#                                            <img style="width:100px;height:100px" src="{{ certificate.photo.url }}"#}
+                    {#                                                 alt="Сертификат">#}
+                    {#                                        </a>#}
+                    {#                                    </li>#}
+                    {#                                {% endif %}#}
+                    {#                            {% endfor %}#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
                     <hr>
                 {% endfor %}
                 <h3>Цены на услуги</h3>
@@ -66,49 +90,49 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <h3>Вопросы и ответы</h3>
-                <ul uk-accordion="duration:800">
-                    <li>
-                        <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default" href="#"><span
-                                uk-icon="icon: list"></span> Задать вопрос</a>
-                        <div class="uk-accordion-content">
-
-                            <form method="POST" action="{{ spec.slug }}" class="uk-form-stacked">
-                                {% csrf_token %}
-                                <div class="uk-margin">
-                                    <div class="uk-form-controls">
-                                        {{ form.name }}
-                                    </div>
-                                </div>
-                                <div class="uk-margin">
-                                    {{ form.text }}
-                                </div>
-                                {{ form.specialization }}
-                                <p class="uk-margin-medium-top">
-                                <div id="spinbutton" uk-spinner></div>
-                                <button id="sendbutton"
-                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"
-                                        type="submit">Отправить...
-                                </button>
-                                </p>
-                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>
-                            </form>
-
-                        </div>
-                    </li>
-                </ul>
+{#                <h3>Вопросы и ответы</h3>#}
+{#                <ul uk-accordion="duration:800">#}
+{#                    <li>#}
+{#                        <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default" href="#"><span#}
+{#                                uk-icon="icon: list"></span> Задать вопрос</a>#}
+{#                        <div class="uk-accordion-content">#}
+{##}
+{#                            <form method="POST" action="{{ spec.slug }}" class="uk-form-stacked">#}
+{#                                {% csrf_token %}#}
+{#                                <div class="uk-margin">#}
+{#                                    <div class="uk-form-controls">#}
+{#                                        {{ form.name }}#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="uk-margin">#}
+{#                                    {{ form.text }}#}
+{#                                </div>#}
+{#                                {{ form.specialization }}#}
+{#                                <p class="uk-margin-medium-top">#}
+{#                                <div id="spinbutton" uk-spinner></div>#}
+{#                                <button id="sendbutton"#}
+{#                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"#}
+{#                                        type="submit">Отправить...#}
+{#                                </button>#}
+{#                                </p>#}
+{#                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>#}
+{#                            </form>#}
+{##}
+{#                        </div>#}
+{#                    </li>#}
+{#                </ul>#}
             </div>
 
-            {% for question in questions %}
-                {% if question.answer %}
-                    <p>
-                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b
-                            class="uk-text-muted">{{ question.name }}</b>:<br>
-                        {{ question.text }}</p>
-                    <p><b>Ответ:</b> {{ question.answer }}</p>
-                    <hr>
-                {% endif %}
-            {% endfor %}
+{#            {% for question in questions %}#}
+{#                {% if question.answer %}#}
+{#                    <p>#}
+{#                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b#}
+{#                            class="uk-text-muted">{{ question.name }}</b>:<br>#}
+{#                        {{ question.text }}</p>#}
+{#                    <p><b>Ответ:</b> {{ question.answer }}</p>#}
+{#                    <hr>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
         </div>
     </div>
     <hr id="map" class="uk-divider-icon">

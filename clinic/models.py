@@ -146,3 +146,42 @@ class Price(models.Model):
         verbose_name = 'Прайс'
         verbose_name_plural = 'Прайс'
         ordering = ['sorting']
+
+
+class Diseases(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Болезнь')
+    slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG')
+    text = models.TextField(verbose_name='Описание', blank=False)
+    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    active = models.BooleanField(default=True, verbose_name='Активно')
+
+    specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Болезнь'
+        verbose_name_plural = 'Болезни'
+        ordering = ['sorting']
+
+
+class Videos(models.Model):
+    title = models.CharField(max_length=100, blank=True, verbose_name='Название видео')
+    link = models.TextField(verbose_name='Код видео youtube', blank=False)
+    created_at = models.DateTimeField(auto_now=True, verbose_name='Дата добавления')
+    active = models.BooleanField(default=True, verbose_name='Активно')
+    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
+
+    specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
+    disease = models.ForeignKey(Diseases, on_delete=models.RESTRICT, verbose_name='Болезнь')
+    doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Доктор')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Видео'
+        verbose_name_plural = 'Видео'
+        ordering = ['created_at']

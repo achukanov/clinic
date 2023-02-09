@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Doctors, Specializations, Price, Certificates, Questions
+from .models import Doctors, Specializations, Price, Certificates, Questions, Videos, Diseases
 from custom.models import IndexSlider
 from custom.models import Maps
 from .forms import QuestionForm
@@ -57,17 +57,19 @@ def laborators(request):
 
 
 def branch(request, slug):
-    if request.method == 'POST':
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('medicine')
+    # if request.method == 'POST':
+    #     form = QuestionForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('medicine')
 
     spec = Specializations.objects.filter(slug=slug).first()
     doctors = Doctors.objects.filter(specialization=spec).filter(active=True)
     certificates = Certificates.objects.filter(doctor__in=doctors, active=True).order_by('-sorting')
     prices = Price.objects.filter(specialization=spec, active=True).order_by('-sorting')
-    questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
+    diseases = Diseases.objects.filter(specialization=spec, active=True).order_by('-sorting')
+    videos = Videos.objects.filter(specialization=spec, active=True).order_by('-sorting')
+    # questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
     form = QuestionForm(initial={'specialization': spec})
     return render(request,
                   'clinic/branch.html', {
@@ -76,18 +78,22 @@ def branch(request, slug):
                       'doctors': doctors,
                       'certificates': certificates,
                       'prices': prices,
-                      'questions': questions,
+                      'diseases': diseases,
+                      'videos': videos,
+                      # 'questions': questions,
                       'form': form
                   })
 
 
 def doctor(request, slug, id):
-    doc = Doctors.objects.filter(pk=int(id)).first()
-    video = 'url youtube link'
-    print(id, doc)
+    doc = Doctors.objects.filter(pk=int(id), active=True).first()
+    videos = Videos.objects.filter(doctor=doc, active=True).order_by('-sorting')
+    certificates = Certificates.objects.filter(doctor=doc, active=True).order_by('-sorting')
+    print(id, doc, videos, certificates)
     return render(request,
                   'clinic/doctor.html', {
                       'request': request,
-                      'doc': doc,
-                      'video': video
+                      'doctor': doc,
+                      'videos': videos,
+                      'certificates': certificates
                   })
