@@ -5,6 +5,7 @@ from custom.models import Maps
 from .forms import QuestionForm
 from booking.models import Booking
 
+
 def index(request):
     doctors = Doctors.objects.filter(active=True).order_by('-sorting')
     slider = IndexSlider.objects.filter(active=True).order_by('-sorting')
@@ -89,7 +90,6 @@ def doctor(request, slug, id):
     doc = Doctors.objects.filter(pk=int(id), active=True).first()
     videos = Videos.objects.filter(doctor=doc, active=True).order_by('-sorting')
     certificates = Certificates.objects.filter(doctor=doc, active=True).order_by('-sorting')
-    print(id, doc, videos, certificates)
     return render(request,
                   'clinic/doctor.html', {
                       'request': request,
@@ -99,15 +99,13 @@ def doctor(request, slug, id):
                   })
 
 
-from booking.forms import BookingForm
-
-
-def booking(request):
-    form = BookingForm()
-    book = Booking.objects.all()
-    return render(request,
-                  'clinic/booking.html', {
-                      'request': request,
-                      'form': form,
-                      'booking': book
-                  })
+# from booking.forms import BookingForm
+# def booking(request):
+#     form = BookingForm()
+#     book = Booking.objects.all()
+#     return render(request,
+#                   'clinic/booking.html', {
+#                       'request': request,
+#                       'form': form,
+#                       'booking': book
+#                   })

@@ -33,3 +33,19 @@ def booking_doctor(request, id):
                       'today': today,
                       'now': now
                   })
+
+
+def booking_time(request, id):
+    now = datetime.date.today()
+    doctor = Doctors.objects.filter(active=True, pk=id).first()
+    bookings = Booking.objects.filter(doctor=doctor.pk, date__gte=now).order_by('date')
+    today = datetime.date.today()
+    now = datetime.datetime.now().time()
+    return render(request,
+                  'booking/booking_doctors.html', {
+                      'request': request,
+                      'doctor': doctor,
+                      'bookings': bookings,
+                      'today': today,
+                      'now': now
+                  })

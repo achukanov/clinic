@@ -61,11 +61,11 @@
                             <p>{{ doctor.education }}</p>
                             <p>{{ doctor.description }}</p>
                         </div>
-                        {% if doctor.link %}
+{#                        {% if doctor.link %}#}
                             <div class="uk-card-footer">
-                                <a href="{{ doctor.link }}" class="uk-button uk-button-text">Записаться на прием</a>
+                                <a href="/booking/{{ doctor.pk }}" class="uk-button uk-button-text">Записаться на прием</a>
                             </div>
-                        {% endif %}
+{#                        {% endif %}#}
                     </div>
                 </div>
             {% endfor %}

@@ -23,14 +23,16 @@ from .models import Booking
 #         }
 
 
-class BookingForm(forms.ModelForm):
+class BookingRequestForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['date', 'doctor', 'time']
+        fields = ['date', 'time', 'doctor', 'spec', 'initials', 'birthdate', 'phone']
         widgets = {
-            'date': forms.Select(attrs={'name': 'date'}),
-            'doctor': forms.Select(attrs={'name': 'doctor'}),
-            'time': forms.Select(attrs={'name': 'time'}),
-            # 'name': forms.TextInput(attrs={'placeholder': 'Имя', 'name': 'name'}),
-            # 'phone': forms.NumberInput(attrs={'placeholder': 'Телефон', 'name': 'phone'}),
+            'date': forms.HiddenInput(attrs={'name': 'date'}),
+            'time': forms.HiddenInput(attrs={'name': 'time'}),
+            'doctor': forms.HiddenInput(attrs={'name': 'doctor'}),
+            'spec': forms.ChoiceField(attrs={'placeholder': 'Специализация', 'name': 'spec'}),
+            'initials': forms.TextInput(attrs={'placeholder': 'ФИО', 'name': 'initials'}),
+            'birthdate': forms.CharField(attrs={'placeholder': 'Дата рождения', 'name': 'birthdate'}),
+            'phone': forms.CharField(attrs={'placeholder': 'Телефон', 'name': 'phone'})
         }
