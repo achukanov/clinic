@@ -21,7 +21,7 @@
                 </nav>
             </div>
             <div class="uk-margin-top uk-visible@l">
-                <span class="tit-1">Частная клиника "Андрос+"</span><br>
+                <span class="tit-1">Клиника "Андрос+"</span><br>
                 <span class="tit-2 uk-text-small">Медицинское учреждение, г. Ессентуки</span>
             </div>
         </div>
@@ -37,7 +37,8 @@
             <a href="mailto:{{ mail }}" title="E-mail">
                 <div class="top"><i class="flaticon-mail" style="font-size:30px"></i></div>
             </a>
-            <a href="{{ booking }}" title="Записаться на прием">
+{#            <a href="{{ booking }}" title="Записаться на прием">#}
+            <a href="/booking" title="Записаться на прием">
                 <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
                         class="flaticon-hotel"
                         style="font-size:35px"></i>
@@ -46,7 +47,7 @@
         </div>
         <div>
             <div class="uk-flex">
-                <img src="{% static '/images/logo-2020.png' %}" class="fon-top-img" alt="Частная клиника Андрос+">
+                <img src="{% static '/images/logo-2020.png' %}" class="fon-top-img" alt="Клиника Андрос+">
                 {% include 'inc/_nav.html' %}
             </div>
         </div>

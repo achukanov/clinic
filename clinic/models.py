@@ -185,3 +185,6 @@ class Videos(models.Model):
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
         ordering = ['created_at']
+
+
+

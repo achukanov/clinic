@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'clinic',
     'custom',
+    'booking',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'clinic/templates')]
+                 os.path.join(BASE_DIR, 'clinic/templates'),
+                 os.path.join(BASE_DIR, 'booking/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

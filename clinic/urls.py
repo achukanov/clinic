@@ -12,4 +12,5 @@ urlpatterns = [
     # path('add-question', views.add_question, name='add-question'),
     path('prices', views.price, name='price'),
     path('laborators', views.laborators, name='laborators'),
+    # path('booking', views.booking, name='booking'),
 ]

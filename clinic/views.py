@@ -3,7 +3,7 @@ from .models import Doctors, Specializations, Price, Certificates, Questions, Vi
 from custom.models import IndexSlider
 from custom.models import Maps
 from .forms import QuestionForm
-
+from booking.models import Booking
 
 def index(request):
     doctors = Doctors.objects.filter(active=True).order_by('-sorting')
@@ -96,4 +96,18 @@ def doctor(request, slug, id):
                       'doctor': doc,
                       'videos': videos,
                       'certificates': certificates
+                  })
+
+
+from booking.forms import BookingForm
+
+
+def booking(request):
+    form = BookingForm()
+    book = Booking.objects.all()
+    return render(request,
+                  'clinic/booking.html', {
+                      'request': request,
+                      'form': form,
+                      'booking': book
                   })
