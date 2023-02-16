@@ -98,14 +98,3 @@ def doctor(request, slug, id):
                       'certificates': certificates
                   })
 
-
-# from booking.forms import BookingForm
-# def booking(request):
-#     form = BookingForm()
-#     book = Booking.objects.all()
-#     return render(request,
-#                   'clinic/booking.html', {
-#                       'request': request,
-#                       'form': form,
-#                       'booking': book
-#                   })

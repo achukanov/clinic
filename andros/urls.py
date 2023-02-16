@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('clinic.urls')),
     path('', include('booking.urls')),
+    path('', include('smart_selects.urls')),
 ]
 
 if settings.DEBUG:

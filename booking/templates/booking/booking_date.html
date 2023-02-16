@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <section class="registration">
+
+
+        <h2>Запись к врачу</h2>
+        <li><a href="/booking/{{ doctor.pk }}">{{ doctor.title }}</a></li>
+        <li><img style="width:300px;height:200px" src="{{ doctor.photo.url }}"></li>
+        {% if not bookings %}
+            <p class="modal-description">Нет свободных дат</p>
+        {% else %}
+            <p class="modal-description">Выбор даты:</p>
+
+{#            <form class="login-form" action="/booking" method="post">#}
+{#                {% csrf_token %}#}
+{#                {{ form.as_p }}#}
+{#            </form>#}
+
+
+            {% for booking in bookings %}
+                <li><a href="/booking/{{ doctor.pk }}/{{ booking }}">{{ booking }}</a></li>
+
+{#                {% for time in booking.time.all|dictsort:"time" %}#}
+{##}
+{#                    {% if time.time < now and booking.date == today %}#}
+{#                    {% else %}#}
+{#                        <li>{{ time }}</li>#}
+{#                    {% endif %}#}
+{##}
+{#                {% endfor %}#}
+
+            {% endfor %}
+        {% endif %}
+    </section>
+
+
+
+
+
+
+
+    {#    TODO: модальное окно#}
+    {#    <section class="registration">#}
+    {#        <h2>Запись к врачу - {{ doctor.title }}</h2>#}
+    {#        {% if not bookings %}#}
+    {#            <p class="modal-description">Нет свободных дат</p>#}
+    {#        {% else %}#}
+    {#            <p class="modal-description">Выбор даты:</p>#}
+    {#            {% for booking in bookings %}#}
+    {##}
+    {#                <li>{{ booking.date }}</li>#}
+    {##}
+    {#                {% for time in booking.time.all|dictsort:"time" %}#}
+    {##}
+    {#                    {% if time.time < now and booking.date == today %}#}
+    {#                    {% else %}#}
+    {#                        <li>{{ time }}</li>#}
+    {#                    {% endif %}#}
+    {##}
+    {#                {% endfor %}#}
+    {##}
+    {#            {% endfor %}#}
+    {#        {% endif %}#}
+    {#    </section>#}
+
+
+
+
+
+
+{% endblock %}

@@ -1,22 +1,28 @@
 {% extends 'main.html' %}
-
 {% block content %}
-    {#        <img src="/static/images/index-new.jpg" class="uk-hidden@l" alt="Частная клиника Андрос+, Ессентуки" uk-cover>#}
-    {#        <img src="/static/images/index-new.jpg" class="uk-visible@l" alt="Частная клиника Андрос+, Ессентуки" uk-cover>#}
-
     <div uk-slideshow="autoplay: true; autoplay-interval: 6000">
 
         <ul class="uk-slideshow-items" uk-height-viewport="min-height: 100Vh">
             {% for slide in slider %}
-            <li>
-                <img src="{{ slide.photo.url }}" alt="" uk-cover>
-            </li>
+                <li>
+                    <img src="{{ slide.photo.url }}" alt="" uk-cover>
+                </li>
             {% endfor %}
         </ul>
 
-    <a class="bord uk-position-center-left uk-position-small uk-icon-button uk-slidenav-previous uk-icon uk-slidenav" href="#" uk-slidenav-previous="" uk-slideshow-item="previous"><svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" data-svg="slidenav-previous"><polyline fill="none" stroke="#000" stroke-width="1.4" points="12.775,1 1.225,12 12.775,23 "></polyline></svg></a>
-    <a class="bord uk-position-center-right uk-position-small uk-icon-button uk-slidenav-next uk-icon uk-slidenav" href="#" uk-slidenav-next="" uk-slideshow-item="next"><svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" data-svg="slidenav-next"><polyline fill="none" stroke="#000" stroke-width="1.4" points="1.225,23 12.775,12 1.225,1 "></polyline></svg></a>
-
+        <a class="bord uk-position-center-left uk-position-small uk-icon-button uk-slidenav-previous uk-icon uk-slidenav"
+           href="#" uk-slidenav-previous="" uk-slideshow-item="previous">
+            <svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg"
+                 data-svg="slidenav-previous">
+                <polyline fill="none" stroke="#000" stroke-width="1.4" points="12.775,1 1.225,12 12.775,23 "></polyline>
+            </svg>
+        </a>
+        <a class="bord uk-position-center-right uk-position-small uk-icon-button uk-slidenav-next uk-icon uk-slidenav"
+           href="#" uk-slidenav-next="" uk-slideshow-item="next">
+            <svg width="14" height="24" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" data-svg="slidenav-next">
+                <polyline fill="none" stroke="#000" stroke-width="1.4" points="1.225,23 12.775,12 1.225,1 "></polyline>
+            </svg>
+        </a>
     </div>
 
     <div class="uk-section" uk-scrollspy="cls:uk-animation-fade">
@@ -53,19 +59,18 @@
                 <div>
                     <div class="uk-card uk-card-default">
                         <div class="uk-card-media-top">
-                            <img style="width:100%;height:300px;object-fit:cover;object-position: top" src="{{ doctor.photo.url }}"
+                            <img style="width:100%;height:300px;object-fit:cover;object-position: top"
+                                 src="{{ doctor.photo.url }}"
                                  alt="{{ doctor.title }}">
                         </div>
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">{{ doctor.title }}</h3>
-                            <p>{{ doctor.education }}</p>
                             <p>{{ doctor.description }}</p>
+
                         </div>
-{#                        {% if doctor.link %}#}
-                            <div class="uk-card-footer">
-                                <a href="/booking/{{ doctor.pk }}" class="uk-button uk-button-text">Записаться на прием</a>
-                            </div>
-{#                        {% endif %}#}
+                        <div class="uk-card-footer">
+                            <a href="/booking/{{ doctor.pk }}" class="uk-button uk-button-text">Записаться на прием</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

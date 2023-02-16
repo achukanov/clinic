@@ -23,23 +23,36 @@ class Specializations(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Специализацию'
-        verbose_name_plural = 'Специализации'
+        verbose_name = 'Специализацию клиники'
+        verbose_name_plural = 'Специализации клиники'
+        ordering = ['-sorting']
+
+
+class Branch(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Специальность врача')
+    slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG', db_index=True)
+    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Специальность врача'
+        verbose_name_plural = 'Специальности врача'
         ordering = ['-sorting']
 
 
 class Doctors(models.Model):
     title = models.CharField(max_length=50, verbose_name='ФИО')
     description = models.TextField(verbose_name='Дополнение', blank=True)
-    education = models.TextField(verbose_name='Направление', blank=True)
-    education_full = models.TextField(verbose_name='Образование', blank=True)
+    education = models.TextField(verbose_name='Образование', blank=True)
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
     photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True, storage=UUIDFileStorage())
     link = models.URLField(blank=True)
 
-    specialization = models.ManyToManyField(Specializations, verbose_name='Специальность', blank=True,
-                                            related_name='Врачи')
+    branch = models.ManyToManyField(Branch, verbose_name='Специальности', related_name='Врачи')
+    specialization = models.ManyToManyField(Specializations, verbose_name='Специализации', related_name='Врачи')
 
     def __str__(self):
         return self.title
@@ -185,6 +198,3 @@ class Videos(models.Model):
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
         ordering = ['created_at']
-
-
-

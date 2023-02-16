@@ -10,10 +10,18 @@ class SpecializationsAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
 
 
+class BranchAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'sorting')
+    list_display_links = ('title', 'slug', 'sorting')
+    list_filter = ('title', 'sorting',)
+    fields = ('title', 'slug', 'sorting')
+    readonly_fields = ('slug',)
+
+
 class DoctorsAdmin(admin.ModelAdmin):
     list_display = ('image_tag', 'title', 'education', 'description', 'sorting', 'active')
     list_display_links = ('image_tag', 'title', 'education', 'description')
-    list_filter = ('sorting', 'active', 'specialization')
+    list_filter = ('sorting', 'active', 'specialization', 'branch')
     search_fields = ('title', 'description', 'education')
 
 
@@ -67,6 +75,7 @@ class VideosAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Specializations, SpecializationsAdmin)
+admin.site.register(Branch, BranchAdmin)
 admin.site.register(Doctors, DoctorsAdmin)
 admin.site.register(Certificates, CertificatesAdmin)
 admin.site.register(Articles, ArticlesAdmin)

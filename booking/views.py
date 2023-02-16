@@ -1,17 +1,17 @@
 import datetime
-
+from django import forms
 from django.shortcuts import render
 from .models import Booking
 from clinic.models import Doctors
 from .forms import BookingForm
+from django.utils.text import slugify
 
 
 # TODO: объединить обе системы букинга через ИФ
-def booking(request):
+def booking_doctor(request):
     doctors = Doctors.objects.filter(active=True)
-    # form = BookingForm()
     return render(request,
-                  'booking/booking.html', {
+                  'booking/booking_doctor.html', {
                       'request': request,
                       'doctors': doctors
                   })
@@ -19,33 +19,58 @@ def booking(request):
 
 # TODO: добавление в лог после бронирования успешно/неуспешно
 # TODO: повторная проверка перед записью в базу
-def booking_doctor(request, id):
+# TODO: фильтр доступного времени перенести с шаблона во вьюху
+def booking_date(request, id):
     now = datetime.date.today()
     doctor = Doctors.objects.filter(active=True, pk=id).first()
     bookings = Booking.objects.filter(doctor=doctor.pk, date__gte=now).order_by('date')
     today = datetime.date.today()
     now = datetime.datetime.now().time()
+
+    bookings_list = []
+    for i in bookings:
+        bookings_list.append(slugify(i.date))
+    # form = ChoiceForm()
+    # queryset = doctor.branch
+    # form.fields['date'] = forms.ModelChoiceField(queryset=bookings, widget=forms.RadioSelect)
+    # form.fields['branch'] = forms.ModelChoiceField(queryset=queryset, widget=forms.RadioSelect)
     return render(request,
-                  'booking/booking_doctors.html', {
+                  'booking/booking_date.html', {
                       'request': request,
                       'doctor': doctor,
-                      'bookings': bookings,
+                      'bookings': bookings_list,
                       'today': today,
+                      # 'form': form,
                       'now': now
                   })
 
 
-def booking_time(request, id):
-    now = datetime.date.today()
+def booking_time(request, id, date):
     doctor = Doctors.objects.filter(active=True, pk=id).first()
-    bookings = Booking.objects.filter(doctor=doctor.pk, date__gte=now).order_by('date')
-    today = datetime.date.today()
-    now = datetime.datetime.now().time()
+    date_from_slug = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+    booking = Booking.objects.filter(doctor=doctor.pk, date=date_from_slug).first()
+    branches = Booking.objects.filter(doctor=doctor.pk, date=date_from_slug).first()
+    times = []
+    # for time in booking.time.all():
+    #     print(time.time)
+    #     times.append(time.time)
+    # print(sorted(times))
+    form = BookingForm()
+    # print(form)
+    # print('-----------------------------------------------------------------------------------------------------------')
+    # print(form.fields)
+    form.fields['time'] = forms.ModelChoiceField(queryset=booking.time.all().order_by('time'), widget=forms.RadioSelect)
+    form.fields['branch'] = forms.ModelChoiceField(queryset=doctor.branch.all(), widget=forms.RadioSelect)
+    # print(sorted(times))
+    # print(form)
+    # print(form.fields)
     return render(request,
-                  'booking/booking_doctors.html', {
+                  'booking/booking_time.html', {
                       'request': request,
+                      'form': form,
                       'doctor': doctor,
-                      'bookings': bookings,
-                      'today': today,
-                      'now': now
+                      'date': date,
+                      # 'bookings': bookings,
+                      # 'today': today,
+                      # 'now': now
                   })

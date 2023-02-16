@@ -21,15 +21,19 @@
                             <div class="uk-accordion-content">
                                 {{ disease.text }}
                                 <br>
-                                {% for video in videos %}
-                                    {% if video.disease == disease %}
-                                        <iframe width="600" height="400"
-                                                src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                allowfullscreen></iframe>
-                                    {% endif %}
-                                {% endfor %}
+                                <div class="uk-section">
+                                    <div class="uk-flex uk-flex-center uk-flex-wrap">
+                                        {% for video in videos %}
+                                            <div class="uk-padding">
+                                                <iframe width="600" height="400"
+                                                        src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
+                                                        title="YouTube video player" frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                        allowfullscreen></iframe>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
                                 <hr>
                             </div>
                         </li>
@@ -47,7 +51,6 @@
                                 <h3 class="uk-card-title">
                                     <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
                                 </h3>
-                                <p>{{ doctor.education }}</p>
                                 <p>{{ doctor.description }}</p>
                             </div>
                         </div>
@@ -90,49 +93,49 @@
                         </tr>
                     {% endfor %}
                 </table>
-{#                <h3>Вопросы и ответы</h3>#}
-{#                <ul uk-accordion="duration:800">#}
-{#                    <li>#}
-{#                        <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default" href="#"><span#}
-{#                                uk-icon="icon: list"></span> Задать вопрос</a>#}
-{#                        <div class="uk-accordion-content">#}
-{##}
-{#                            <form method="POST" action="{{ spec.slug }}" class="uk-form-stacked">#}
-{#                                {% csrf_token %}#}
-{#                                <div class="uk-margin">#}
-{#                                    <div class="uk-form-controls">#}
-{#                                        {{ form.name }}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="uk-margin">#}
-{#                                    {{ form.text }}#}
-{#                                </div>#}
-{#                                {{ form.specialization }}#}
-{#                                <p class="uk-margin-medium-top">#}
-{#                                <div id="spinbutton" uk-spinner></div>#}
-{#                                <button id="sendbutton"#}
-{#                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"#}
-{#                                        type="submit">Отправить...#}
-{#                                </button>#}
-{#                                </p>#}
-{#                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>#}
-{#                            </form>#}
-{##}
-{#                        </div>#}
-{#                    </li>#}
-{#                </ul>#}
+                {#                <h3>Вопросы и ответы</h3>#}
+                {#                <ul uk-accordion="duration:800">#}
+                {#                    <li>#}
+                {#                        <a class="uk-accordion-title uk-padding-small uk-box-shadow-small border-default" href="#"><span#}
+                {#                                uk-icon="icon: list"></span> Задать вопрос</a>#}
+                {#                        <div class="uk-accordion-content">#}
+                {##}
+                {#                            <form method="POST" action="{{ spec.slug }}" class="uk-form-stacked">#}
+                {#                                {% csrf_token %}#}
+                {#                                <div class="uk-margin">#}
+                {#                                    <div class="uk-form-controls">#}
+                {#                                        {{ form.name }}#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                                <div class="uk-margin">#}
+                {#                                    {{ form.text }}#}
+                {#                                </div>#}
+                {#                                {{ form.specialization }}#}
+                {#                                <p class="uk-margin-medium-top">#}
+                {#                                <div id="spinbutton" uk-spinner></div>#}
+                {#                                <button id="sendbutton"#}
+                {#                                        class="uk-button uk-button-default uk-button-large uk-box-shadow-medium"#}
+                {#                                        type="submit">Отправить...#}
+                {#                                </button>#}
+                {#                                </p>#}
+                {#                                <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>#}
+                {#                            </form>#}
+                {##}
+                {#                        </div>#}
+                {#                    </li>#}
+                {#                </ul>#}
             </div>
 
-{#            {% for question in questions %}#}
-{#                {% if question.answer %}#}
-{#                    <p>#}
-{#                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b#}
-{#                            class="uk-text-muted">{{ question.name }}</b>:<br>#}
-{#                        {{ question.text }}</p>#}
-{#                    <p><b>Ответ:</b> {{ question.answer }}</p>#}
-{#                    <hr>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
+            {#            {% for question in questions %}#}
+            {#                {% if question.answer %}#}
+            {#                    <p>#}
+            {#                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b#}
+            {#                            class="uk-text-muted">{{ question.name }}</b>:<br>#}
+            {#                        {{ question.text }}</p>#}
+            {#                    <p><b>Ответ:</b> {{ question.answer }}</p>#}
+            {#                    <hr>#}
+            {#                {% endif %}#}
+            {#            {% endfor %}#}
         </div>
     </div>
     <hr id="map" class="uk-divider-icon">

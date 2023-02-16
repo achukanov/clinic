@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'clinic',
     'custom',
     'booking',
+    'smart_selects',
 ]
 
 MIDDLEWARE = [
