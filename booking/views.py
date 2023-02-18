@@ -10,10 +10,36 @@ from django.utils.text import slugify
 # TODO: объединить обе системы букинга через ИФ
 def booking_doctor(request):
     doctors = Doctors.objects.filter(active=True)
+
+    now = datetime.date.today()
+    # doctor = Doctors.objects.filter(active=True, pk=id).first()
+    bookings = Booking.objects.filter(date__gte=now).order_by('date')
+    today = datetime.date.today()
+    now = datetime.datetime.now().time()
+
+    bookings_list = {}
+    for doctor in doctors:
+        doc = []
+        for booking in bookings:
+            if booking.doctor == doctor:
+                doc.append(booking)
+        bookings_list[doctor] = doc
+
+    print(bookings_list)
+
+    # bookings_list = []
+    # for i in bookings:
+    #     bookings_list.append(slugify(i.date))
+
     return render(request,
                   'booking/booking_doctor.html', {
                       'request': request,
-                      'doctors': doctors
+                      'doctors': doctors,
+
+                      'bookings': bookings_list,
+                      'today': today,
+                      'now': now
+
                   })
 
 
