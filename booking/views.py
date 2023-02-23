@@ -1,6 +1,6 @@
 import datetime
 from django import forms
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Booking
 from clinic.models import Doctors
 from .forms import BookingForm
@@ -73,23 +73,46 @@ def booking_date(request, id):
 
 def booking_time(request, id, date):
     doctor = Doctors.objects.filter(active=True, pk=id).first()
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        # form.fields['doctor'] = doctor
+        print(form.fields)
+        print(form.data)
+        print(form.data['time'])
+        print(type(form.data['time']))
+        for field in form:
+            print("Field Error:", field.name, field.errors)
+        # print(form.data)
+        # for i in form.fields:
+        #     print(i.value)
+
+        if form.is_valid():
+
+            print('---------------------------------------------------valid!')
+            form.save()
+            print('---------------------------------------------------save!')
+            return redirect('/')
+
+    # now = datetime.datetime.now().time()
+    # bookings = Booking.objects.filter(doctor=doctor.pk, date__gte=now).order_by('date')
+    # bookings_list = []
+    # for i in bookings:
+    #     bookings_list.append(slugify(i.date))
+
     date_from_slug = datetime.datetime.strptime(date, '%Y-%m-%d').date()
     booking = Booking.objects.filter(doctor=doctor.pk, date=date_from_slug).first()
     branches = Booking.objects.filter(doctor=doctor.pk, date=date_from_slug).first()
+
     times = []
-    # for time in booking.time.all():
-    #     print(time.time)
-    #     times.append(time.time)
-    # print(sorted(times))
-    form = BookingForm()
-    # print(form)
-    # print('-----------------------------------------------------------------------------------------------------------')
-    # print(form.fields)
+    for time in booking.time.all():
+        times.append(time.time)
+    print(times)
+    form = BookingForm(initial={'doctor': doctor, 'date': date})
+    # TODO:вывод в варианты выбора формы time а не str
     form.fields['time'] = forms.ModelChoiceField(queryset=booking.time.all().order_by('time'), widget=forms.RadioSelect)
+    # form.fields['time'] = forms.ModelChoiceField(queryset=times, widget=forms.RadioSelect)
     form.fields['branch'] = forms.ModelChoiceField(queryset=doctor.branch.all(), widget=forms.RadioSelect)
-    # print(sorted(times))
-    # print(form)
-    # print(form.fields)
+
     return render(request,
                   'booking/booking_time.html', {
                       'request': request,

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Booking, Times
+from .models import Booking, Times, BookingRequests
 
 
 class BookingAdmin(admin.ModelAdmin):
@@ -16,8 +16,13 @@ class TimesAdmin(admin.ModelAdmin):
     ordering = ('time',)
 
 
+class BookingRequestsAdmin(admin.ModelAdmin):
+    list_display = ('date', 'time', 'doctor', 'branch', 'initials', 'birthdate', 'phone')
+
+
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Times, TimesAdmin)
+admin.site.register(BookingRequests, BookingRequestsAdmin)
 
 admin.site.site_title = 'Бронь'
 admin.site.site_header = 'Бронь'

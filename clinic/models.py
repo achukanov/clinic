@@ -144,7 +144,7 @@ class Questions(models.Model):
 
 
 class Price(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Услуга')
+    name = models.CharField(max_length=200, verbose_name='Услуга')
     cost = models.IntegerField(default=0, verbose_name='Цена')
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')

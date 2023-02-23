@@ -19,11 +19,12 @@
                                href="#"><span
                                     uk-icon="icon: list"></span> {{ disease.title }} </a>
                             <div class="uk-accordion-content">
-                                {{ disease.text }}
+                                {{ disease.text|linebreaks }}
                                 <br>
                                 <div class="uk-section">
                                     <div class="uk-flex uk-flex-center uk-flex-wrap">
                                         {% for video in videos %}
+                                            {% if video.disease == disease %}
                                             <div class="uk-padding">
                                                 <iframe width="600" height="400"
                                                         src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
@@ -31,6 +32,7 @@
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                         allowfullscreen></iframe>
                                             </div>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -41,20 +43,25 @@
                 {% endfor %}
 
                 {% for doctor in doctors %}
-                    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
-                        <div class="uk-card-media-left uk-cover-container">
-                            <img src="{{ doctor.photo.url }}" alt="{{ doctor.title }}" uk-cover>
-                            <canvas width="600" height="400"></canvas>
-                        </div>
-                        <div>
-                            <div class="uk-card-body">
-                                <h3 class="uk-card-title">
-                                    <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
-                                </h3>
-                                <p>{{ doctor.description }}</p>
+{#                    <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">#}
+                        <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                            <div class="uk-card-media-top uk-cover-container">
+                                <img style="width:100%;height:300px;object-fit:cover;object-position: top"
+                                     src="{{ doctor.photo.url }}"
+                                     alt="{{ doctor.title }}" uk-cover>
+                                <canvas width="600" height="400"></canvas>
+                            </div>
+                            <div>
+                                <div class="uk-card-body">
+                                    <h3 class="uk-card-title">
+                                        <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
+{#                                        {{ doctor.title }}#}
+                                    </h3>
+                                    <p>{{ doctor.description|linebreaks }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+{#                    </a>#}
                     {#                    {% if doctor.education_full %}#}
                     {#                        <h3>Образование</h3>#}
                     {#                        <p>#}
@@ -78,20 +85,22 @@
                     {#                    </div>#}
                     <hr>
                 {% endfor %}
-                <h3>Цены на услуги</h3>
-                <table class="uk-table uk-table-striped uk-table-hover">
-                    <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Цена руб.</th>
-                    </tr>
-                    </thead>
-                    {% for price in prices %}
+                {% if prices %}
+                    <h3>Цены на услуги</h3>
+                    <table class="uk-table uk-table-striped uk-table-hover">
+                        <thead>
                         <tr>
-                            <td>{{ price.name }}</td>
-                            <td>{{ price.cost }}</td>
+                            <th>Название</th>
+                            <th>Цена руб.</th>
                         </tr>
-                    {% endfor %}
+                        </thead>
+                        {% for price in prices %}
+                            <tr>
+                                <td>{{ price.name }}</td>
+                                <td>{{ price.cost }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                 </table>
                 {#                <h3>Вопросы и ответы</h3>#}
                 {#                <ul uk-accordion="duration:800">#}

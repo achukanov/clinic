@@ -5,14 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+{{ request.path }}
 <li><a href="/booking/{{ doctor.pk }}">{{ doctor.title }}</a></li>
 <li><img style="width:300px;height:200px" src="{{ doctor.photo.url }}"</li>
 <li>{{ date }}</li>
 
-<form class="login-form" action="{% url 'booking_doctor' %}" method="post">
+<form action="{{ request.path }}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button class="button" type="submit">Записаться</button>
+    {{ form.as_div }}
+    <button type="submit">Записаться</button>
 </form>
 </body>
 </html>

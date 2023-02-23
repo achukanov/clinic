@@ -17,7 +17,6 @@
                                href="#"><span uk-icon="icon: list"></span> Выбор времени:</a>
                             <div class="uk-accordion-content"><p>Дата:</p>
                                 {% for date in dates %}
-                                    <li>{{ date }}</li>
                                     <li><a href="/booking/{{ doctor.pk }}/{{ date }}">{{ date }}</a></li>
                                 {% endfor %}
                             </div>

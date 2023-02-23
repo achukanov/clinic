@@ -19,16 +19,16 @@
                     <div>
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">
-                                <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
+                                {{ doctor.title }}
                             </h3>
-                            <p>{{ doctor.description }}</p>
+                            <p>{{ doctor.description|linebreaks }}</p>
                         </div>
                     </div>
                 </div>
                 {% if doctor.education %}
                     <h3>Образование</h3>
                     <p>
-                        {{ doctor.education_full }}
+                        {{ doctor.education|linebreaks }}
                     </p>
                 {% endif %}
                 <div uk-lightbox="animation: slide">

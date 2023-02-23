@@ -46,8 +46,8 @@ class Booking(models.Model):
 
 
 class BookingRequests(models.Model):
-    date = models.DateField(verbose_name='Дата', blank=False)
-    time = models.TimeField(verbose_name='Время', blank=False)
+    date = models.CharField(max_length=50, verbose_name='Дата', blank=False)
+    time = models.CharField(max_length=50, verbose_name='Время', blank=False)
     doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Врач', blank=False)
     branch = models.ForeignKey(Branch, on_delete=models.RESTRICT, verbose_name='Специальность врача', blank=False)
     initials = models.TextField(verbose_name='ФИО', blank=False)

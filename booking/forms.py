@@ -51,7 +51,6 @@ class BookingForm(forms.ModelForm):
 
     class Meta:
         model = BookingRequests
-
         fields = ['date', 'time', 'doctor', 'branch', 'initials', 'birthdate', 'phone']
         # widgets = {
         #     'date': forms.HiddenInput(attrs={'name': 'date'}),

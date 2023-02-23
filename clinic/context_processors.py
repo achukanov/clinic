@@ -10,19 +10,22 @@ from custom.models import OtherData
     'instagram': 'https://www.instagram.com/clinic_andros_essentuki/'
     'title': 'Андрос+',
 '''
+
+
 def context_tags(request):
     data = OtherData.objects.all().order_by('number')
     context = {
         'booking_url': data[0].data,
         'description': data[1].data,
         'title': data[2].data,
-        'adress': data[3].data,
+        'address': data[3].data,
         'phone': data[4].data,
         'mail': data[5].data,
         'year': datetime.now().year,
         'instagram': data[6].data,
     }
     return context
+
 
 '''
     OtherData.objects.all()
