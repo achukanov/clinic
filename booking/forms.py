@@ -40,15 +40,6 @@ from django.core.exceptions import ValidationError
 #         # }
 
 class BookingForm(forms.ModelForm):
-    # queryset = Booking.objects.all()
-    # date = forms.HiddenInput(),
-    # time = forms.ModelChoiceField(queryset=queryset),
-    # doctor = forms.HiddenInput(),
-    # branch = forms.ModelChoiceField(queryset=queryset),
-    # initials = forms.CharField(),
-    # birthdate = forms.CharField(),
-    # phone = forms.CharField()
-
     class Meta:
         model = Booking
         spec = forms.ModelChoiceField(queryset=Specializations.objects.all())
