@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<section class="registration">
+    <h2>Запись к врачу</h2>
+    <form action="{{ booking }}" method="post">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <button type="submit">Записаться</button>
+</form>
+</section>
+{% endblock %}

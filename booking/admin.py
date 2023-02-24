@@ -1,28 +1,17 @@
 from django.contrib import admin
 
-from .models import Booking, Times, BookingRequests
+from .models import Booking
 
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ('date', 'doctor', 'context')
-    list_display_links = ('date', 'doctor', 'context')
-    list_filter = ('date', 'doctor')
-    search_fields = ('date', 'context',)
-
-
-class TimesAdmin(admin.ModelAdmin):
-    list_display = ('time',)
-    list_display_links = ('time',)
-    ordering = ('time',)
-
-
-class BookingRequestsAdmin(admin.ModelAdmin):
-    list_display = ('date', 'time', 'doctor', 'branch', 'initials', 'birthdate', 'phone')
+    list_display = ('spec', 'doctor', 'name', 'phone')
+    list_display_links = ('name', 'phone')
+    list_filter = ('spec', 'doctor')
+    search_fields = ('spec', 'doctor',)
+    # readonly_fields = ('created_at',)
 
 
 admin.site.register(Booking, BookingAdmin)
-admin.site.register(Times, TimesAdmin)
-admin.site.register(BookingRequests, BookingRequestsAdmin)
 
-admin.site.site_title = 'Бронь'
-admin.site.site_header = 'Бронь'
+admin.site.site_title = 'Заявки'
+admin.site.site_header = 'Заявки'

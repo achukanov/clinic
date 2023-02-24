@@ -1,8 +1,8 @@
 from django import forms
-from .models import BookingRequests, Booking
+from .models import Booking
 from clinic.models import *
-
-
+import re
+from django.core.exceptions import ValidationError
 # class QuestionForm(forms.ModelForm):
 #
 #     class Meta:
@@ -50,8 +50,18 @@ class BookingForm(forms.ModelForm):
     # phone = forms.CharField()
 
     class Meta:
-        model = BookingRequests
-        fields = ['date', 'time', 'doctor', 'branch', 'initials', 'birthdate', 'phone']
+        model = Booking
+        spec = forms.ModelChoiceField(queryset=Specializations.objects.all())
+        doctor = forms.ModelChoiceField(queryset=Doctors.objects.all())
+        fields = ['spec', 'doctor', 'name', 'phone']
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if re.fullmatch(r'[Z0-9]*', name):
+            raise ValueError('Не должно быть цифр')
+
+
+
         # widgets = {
         #     'date': forms.HiddenInput(attrs={'name': 'date'}),
         #     'time': forms.ChoiceField(attrs={'name': 'time'}),
@@ -61,12 +71,12 @@ class BookingForm(forms.ModelForm):
         #     'birthdate': forms.CharField(attrs={'placeholder': 'Дата рождения', 'name': 'birthdate'}),
         #     'phone': forms.CharField(attrs={'placeholder': 'Телефон', 'name': 'phone'})
         # }
-        widgets = {
-            'date': forms.HiddenInput(attrs={'name': 'date'}),
+        # widgets = {
+            # 'date': forms.HiddenInput(attrs={'name': 'date'}),
             # 'time': forms.ChoiceField(attrs={'name': 'time'}),
-            'doctor': forms.HiddenInput(attrs={'name': 'doctor'}),
+            # 'doctor': forms.HiddenInput(attrs={'name': 'doctor'}),
             # 'branch': forms.ChoiceField(attrs={'name': 'branch'}),
             # 'initials': forms.CharField(attrs={'placeholder': 'ФИО', 'name': 'initials'}),
             # 'birthdate': forms.CharField(attrs={'placeholder': 'Дата рождения', 'name': 'birthdate'}),
             # 'phone': forms.CharField(attrs={'placeholder': 'Телефон', 'name': 'phone'})
-        }
+        # }
