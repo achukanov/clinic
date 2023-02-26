@@ -16,16 +16,16 @@ class TelegramSettings(models.Model):
 
 
 class Booking(models.Model):
-    spec = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность врача', blank=True)
+    spec = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специализация', blank=True)
     doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Врач', blank=True)
     name = models.TextField(verbose_name='Имя', blank=False)
     phone = models.CharField(max_length=50, verbose_name='Номер телефона', blank=False)
-    created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    # created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
 
     def __str__(self):
         return self.phone
 
     class Meta:
-        verbose_name = 'Заявка'
-        verbose_name_plural = 'Заявку'
-        ordering = ['-created_at']
+        verbose_name = 'Заявку'
+        verbose_name_plural = 'Заявки'
+        # ordering = ['-created_at']
