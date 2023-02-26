@@ -5,53 +5,40 @@ import re
 from django.core.exceptions import ValidationError
 
 
-# class QuestionForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = Questions
-#         fields = ("name", "text", "specialization")
-#         widgets = {
-#             'name': forms.TextInput(attrs={
-#                 'class': 'uk-input uk-form-large uk-box-shadow-medium',
-#                 'id': 'id_name',
-#                 'placeholder': 'Имя---',
-#                 'name': 'name'}),
-#             'text': forms.Textarea(attrs={
-#                 'class': 'uk-textarea uk-form-large uk-box-shadow-medium',
-#                 'id': 'id_text',
-#                 'placeholder': 'Текст---',
-#                 'name': 'text',
-#                 'rows': 5}),
-#             'specialization': forms.HiddenInput()
-#         }
-
-# class ChoiceForm(forms.Form):
-#     # doctor = Doctors.objects.filter(id=7).all()
-#     # print(doctor)
-#     # doctor = forms.ModelChoiceField(queryset=Doctors.objects.all(), to_field_name='title')
-#     queryset = Booking.objects.all()
-#     date = forms.ModelChoiceField(queryset=queryset)
-#     branch = forms.ModelChoiceField(queryset=queryset)
-#
-#     class Meta:
-#         fields = ['date', 'branch']
-#         # widgets = {
-#         #     'doctor': forms.HiddenInput(),
-#         #     'date': forms.ChoiceField(),
-#         #     'time': forms.ChoiceField()
-#         # }
-
-
 class BookingForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(BookingForm, self).__init__(*args, **kwargs)
+        spec_list = Specializations.objects.filter(active=True).order_by('-sorting')
+        doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
+        print([i.title for i in spec_list])
+        print([i.title for i in doc_list])
+        # for i in doc_list:
+        #     print(i.title)
+        self.fields['spec'].queryset = spec_list
+        self.fields['doctor'].queryset = doc_list
+
     class Meta:
+        # spec_list = Specializations.objects.filter(active=True).order_by('-sorting')
+        # print(spec_list)
+        # doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
+        # print(doc_list)
         model = Booking
-        spec = forms.ModelChoiceField(queryset=Specializations.objects.all(), required=True)
-        doctor = forms.ModelChoiceField(queryset=Doctors.objects.all(), required=True)
         fields = ['spec', 'doctor', 'name', 'phone']
-        widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Имяяя'}),
-            'phone': forms.NumberInput(attrs={'placeholder': 'Телефонннн'}),
-        }
+        # spec = forms.ModelChoiceField(queryset=spec_list,
+        #                               required=True)
+        # doctor = forms.ModelChoiceField(queryset=doc_list, required=True)
+
+        # widgets = {
+        #     'name': forms.TextInput(attrs={'placeholder': 'Имяяя'}),
+        #     'phone': forms.NumberInput(attrs={'placeholder': 'Телефонннн'}),
+        # }
+
+    def clean_spec(self):
+        spec = self.cleaned_data['spec']
+        print('spec---------------------', spec)
+        if not spec:
+            raise ValidationError('выберите поле')
+        return spec
 
     def clean_doctor(self):
         doctor = self.cleaned_data['doctor']

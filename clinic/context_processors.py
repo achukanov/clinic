@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from booking.forms import BookingForm
 from custom.models import OtherData
 
 '''
@@ -13,6 +15,10 @@ from custom.models import OtherData
 
 
 def context_tags(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+    else:
+        form = BookingForm()
     data = OtherData.objects.all().order_by('number')
     context = {
         'booking_url': data[0].data,
@@ -23,6 +29,7 @@ def context_tags(request):
         'mail': data[5].data,
         'year': datetime.now().year,
         'instagram': data[6].data,
+        'form': form
     }
     return context
 

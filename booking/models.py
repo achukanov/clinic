@@ -15,10 +15,11 @@ class TelegramSettings(models.Model):
         verbose_name_plural = 'Настройки бота'
 
 
+# TODO: created_at
 class Booking(models.Model):
-    spec = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специализация', blank=True)
-    doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Врач', blank=True)
-    name = models.TextField(verbose_name='Имя', blank=False)
+    spec = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специализация', blank=False)
+    doctor = models.ForeignKey(Doctors, on_delete=models.RESTRICT, verbose_name='Врач', blank=False)
+    name = models.CharField(max_length=200, verbose_name='Имя', blank=False)
     phone = models.CharField(max_length=50, verbose_name='Номер телефона', blank=False)
     # created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
 

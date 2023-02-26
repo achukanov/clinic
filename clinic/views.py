@@ -71,7 +71,7 @@ def branch(request, slug):
     diseases = Diseases.objects.filter(specialization=spec, active=True).order_by('-sorting')
     videos = Videos.objects.filter(specialization=spec, active=True).order_by('-sorting')
     # questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
-    form = QuestionForm(initial={'specialization': spec})
+    # form = QuestionForm(initial={'specialization': spec})
     return render(request,
                   'clinic/branch.html', {
                       'request': request,
@@ -82,7 +82,7 @@ def branch(request, slug):
                       'diseases': diseases,
                       'videos': videos,
                       # 'questions': questions,
-                      'form': form
+                      # 'form': form
                   })
 
 

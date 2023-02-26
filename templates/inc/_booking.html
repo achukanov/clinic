@@ -1,0 +1,60 @@
+{#{% extends 'main.html' %}#}
+
+{#{% block content %}#}
+{#<button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-example">Open</button>#}
+<div id="modal-example" uk-modal>
+<div class="uk-modal-dialog uk-modal-body">
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<form method="post" action="/booking">
+{% csrf_token %}
+<fieldset class="uk-fieldset">
+        <h2>Запись на приём</h2>
+        <h4>Администратор клиники перезвонит и запишет к специалисту</h4>
+                {% for choice in form.doctor %}
+                    {{ choice }}
+                {% endfor %}
+{#        {{ form.spec }}#}
+        {{ form.non_field_errors }}
+
+        <div class="uk-margin fieldWrapper">
+            <label for="spec">Your spec: </label>
+            <select class="uk-select" aria-label="Select" id="spec" name="spec">
+                {% for choice in form.spec %}
+                    <option>{{ choice }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="uk-margin fieldWrapper">
+            <label for="spec">Your doctor: </label>
+            {{ form.doctor.errors }}
+            <select class="uk-select" aria-label="Select" id="doctor" name="doctor">
+                {% for choice in form.doctor %}
+                    <option>{{ choice }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="uk-margin fieldWrapper">
+            <label for="name">Your name: </label>
+            <input class="uk-input" aria-label="Input" id="name" type="text" name="name" maxlength="100" required>
+        </div>
+
+        <div class="uk-margin fieldWrapper">
+            <label for="phone">Your phone: </label>
+            <input class="uk-input" aria-label="Input" id="phone" type="text" name="phone" maxlength="100" required>
+        </div>
+        <button class="uk-button uk-button-default">Отправить</button>
+        <br>
+        <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>
+
+    </fieldset>
+    </form>
+</div>
+</div>
+{#{% endblock %}#}
+
+
+
+
