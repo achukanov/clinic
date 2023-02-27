@@ -11,6 +11,7 @@ from custom.models import OtherData
     'year': datetime.now().year,
     'instagram': 'https://www.instagram.com/clinic_andros_essentuki/'
     'title': 'Андрос+',
+    'booking_url' - если TRUE, то медфлекс, если пустая строка - своя форма бронирования
 '''
 
 

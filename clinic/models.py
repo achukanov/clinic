@@ -200,3 +200,27 @@ class Videos(models.Model):
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
         ordering = ['created_at']
+
+
+class SpecSlider(models.Model):
+    title = models.CharField(max_length=250, blank=True, verbose_name='Описание слайда')
+    photo = models.ImageField(upload_to='spec_slider/', verbose_name='Изображение')
+    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
+    active = models.BooleanField(default=True, verbose_name='Активно')
+    specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
+
+    def __str__(self):
+        return self.title
+
+    def image_tag(self):
+        if self.photo:
+            return mark_safe(f'<img src="{self.photo.url}" width="150px" height="150px" />')
+        else:
+            return ''
+
+    image_tag.short_description = 'Фото'
+
+    class Meta:
+        verbose_name = 'Слайдеры страниц специализаций'
+        verbose_name_plural = 'Слайдер страницы специализации'
+        ordering = ['sorting']

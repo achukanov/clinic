@@ -66,11 +66,12 @@
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">{{ doctor.title }}</h3>
                             <p>{{ doctor.description }}</p>
-
                         </div>
-                        <div class="uk-card-footer">
-                            <a href="/booking/{{ doctor.pk }}" class="uk-button uk-button-text">Записаться на прием</a>
-                        </div>
+                        {% if booking_url %}
+                            <div class="uk-card-footer">
+                                <a href="{{ doctor.link }}" class="uk-button uk-button-text">Записаться на прием</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

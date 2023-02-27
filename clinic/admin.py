@@ -92,6 +92,11 @@ class VideosAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
 
 
+class SpecSliderAdmin(admin.ModelAdmin):
+    list_display = ('image_tag', 'sorting', 'active', 'specialization')
+    list_display_links = ('image_tag', 'sorting', 'active', 'specialization')
+
+
 admin.site.register(Specializations, SpecializationsAdmin)
 admin.site.register(Branch, BranchAdmin)
 admin.site.register(Doctors, DoctorsAdmin)
@@ -101,6 +106,7 @@ admin.site.register(Certificates, CertificatesAdmin)
 admin.site.register(Price, PriceAdmin)
 admin.site.register(Diseases, DiseasesAdmin)
 admin.site.register(Videos, VideosAdmin)
+admin.site.register(SpecSlider, SpecSliderAdmin)
 
 admin.site.site_title = 'Управление сайтом'
 admin.site.site_header = 'Управление сайтом'

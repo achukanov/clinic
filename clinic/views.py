@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Doctors, Specializations, Price, Certificates, Videos, Diseases
+from .models import Doctors, Specializations, Price, Certificates, Videos, Diseases, SpecSlider
 from custom.models import IndexSlider
 from custom.models import Maps
 from booking.models import Booking
@@ -69,6 +69,7 @@ def branch(request, slug):
     prices = Price.objects.filter(specialization=spec, active=True).order_by('-sorting')
     diseases = Diseases.objects.filter(specialization=spec, active=True).order_by('-sorting')
     videos = Videos.objects.filter(specialization=spec, active=True).order_by('-sorting')
+    slider = SpecSlider.objects.filter(specialization=spec, active=True).order_by('-sorting')
     # questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
     # form = QuestionForm(initial={'specialization': spec})
     return render(request,
@@ -80,6 +81,7 @@ def branch(request, slug):
                       'prices': prices,
                       'diseases': diseases,
                       'videos': videos,
+                      'slider': slider,
                       # 'questions': questions,
                       # 'form': form
                   })

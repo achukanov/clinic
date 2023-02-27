@@ -10,9 +10,10 @@
                     <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
                         <li><a href="/" target="_self"><span class="uk-margin-small-right" uk-icon="icon: home"></span>
                             На главную <span uk-icon="chevron-right"></span></a></li>
-{#                        <li><a href="/about" target="_self"> О клинике <span uk-icon="chevron-right"></span></a></li>#}
+                        {#                        <li><a href="/about" target="_self"> О клинике <span uk-icon="chevron-right"></span></a></li>#}
                         <li><a href="/medicine" target="_self"> Врачи <span uk-icon="chevron-right"></span></a></li>
-                        <li><a href="/laborators" target="_self"> Лаборатория <span uk-icon="chevron-right"></span></a></li>
+                        <li><a href="/laborators" target="_self"> Лаборатория <span uk-icon="chevron-right"></span></a>
+                        </li>
                         <li><a href="/prices" target="_self"> Цены <span uk-icon="chevron-right"></span></a></li>
                         <li><a href="/contacts" target="_self"> Контакты <span uk-icon="chevron-right"></span></a></li>
                     </ul>
@@ -35,13 +36,24 @@
             <a href="mailto:{{ mail }}" title="E-mail">
                 <div class="top"><i class="flaticon-mail" style="font-size:30px"></i></div>
             </a>
-            {#            <a href="{{ booking }}" title="Записаться на прием">#}
+
+            {% if booking_url %}
+                <a href="{{ booking_url }}" title="Записаться на прием">
+                    <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
+                            class="flaticon-hotel"
+                            style="font-size:35px"></i>
+                        <span class="uk-margin-small-left uk-visible@l">Запись на<br>прием</span></div>
+                </a>
+            {% else %}
             <a title="Записаться на прием">
                 <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
                         class="flaticon-hotel"
                         style="font-size:35px"></i>
-                    <span class="uk-margin-small-left uk-visible@l" uk-toggle="target: #modal-example">Запись на<br>прием</span></div>
+                    <span class="uk-margin-small-left uk-visible@l" uk-toggle="target: #modal-example">Запись на<br>прием</span>
+                </div>
             </a>
+            {% endif %}
+
         </div>
         <div>
             <div class="uk-flex">

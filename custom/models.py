@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.html import mark_safe
 
+from clinic.models import Specializations
+
 
 class Maps(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название', blank=True)
@@ -37,9 +39,12 @@ class IndexSlider(models.Model):
 
 class OtherData(models.Model):
     number = models.IntegerField(verbose_name='Номер ячейки', blank=True)
-    title = models.CharField(max_length=100, verbose_name='Описание')
-    data = models.CharField(max_length=240, verbose_name='Информация')
+    title = models.TextField(verbose_name='Описание')
+    data = models.CharField(max_length=240, verbose_name='Информация', blank=True)
 
     class Meta:
         verbose_name = 'Информацию для сайта'
         verbose_name_plural = 'Информация для сайта'
+
+
+
