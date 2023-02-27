@@ -23,7 +23,7 @@ class IndexSlider(models.Model):
 
     def image_tag(self):
         if self.photo:
-            return mark_safe(f'<img src="{self.photo.url}" width="100px" height="100px" />')
+            return mark_safe(f'<img src="{self.photo.url}" width="150px" height="150px" />')
         else:
             return ''
 
@@ -41,5 +41,5 @@ class OtherData(models.Model):
     data = models.CharField(max_length=240, verbose_name='Информация')
 
     class Meta:
-        verbose_name = 'Информация'
-        verbose_name_plural = 'Информация'
+        verbose_name = 'Информацию для сайта'
+        verbose_name_plural = 'Информация для сайта'

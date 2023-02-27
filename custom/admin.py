@@ -3,9 +3,8 @@ from .models import Maps, IndexSlider, OtherData
 
 
 class MapsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'title', 'active')
-    list_display_links = ('name', 'title', 'active')
-    fields = ('name', 'title', 'active')
+    list_display = ('name', 'active')
+    list_display_links = ('name', 'active')
 
 
 class IndexSliderAdmin(admin.ModelAdmin):
@@ -15,10 +14,10 @@ class IndexSliderAdmin(admin.ModelAdmin):
 
 
 class OtherDataAdmin(admin.ModelAdmin):
-    list_display = ('number', 'title', 'data')
-    list_display_links = ('number', 'title', 'data')
-    fields = ('number', 'title', 'data')
+    list_display = ('number', 'title')
+    list_display_links = ('number', 'title')
     ordering = ('number',)
+
 
 admin.site.register(Maps, MapsAdmin)
 admin.site.register(IndexSlider, IndexSliderAdmin)

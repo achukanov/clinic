@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Doctors, Specializations, Price, Certificates, Questions, Videos, Diseases
+from .models import Doctors, Specializations, Price, Certificates, Videos, Diseases
 from custom.models import IndexSlider
 from custom.models import Maps
-from .forms import QuestionForm
 from booking.models import Booking
 
 
