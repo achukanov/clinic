@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.html import mark_safe
-
 from clinic.models import Specializations
 
 
@@ -45,6 +44,3 @@ class OtherData(models.Model):
     class Meta:
         verbose_name = 'Информацию для сайта'
         verbose_name_plural = 'Информация для сайта'
-
-
-

@@ -45,6 +45,9 @@
             <label for="phone">Your phone: </label>
             <input class="uk-input" aria-label="Input" id="phone" type="text" name="phone" maxlength="100" required>
         </div>
+
+        <input type="hidden" name="next" value="{{ request.path }}">
+
         <button class="uk-button uk-button-default">Отправить</button>
         <br>
         <span class="uk-text-muted uk-text-small">Нажимая, вы даете согласие на обработку персональных данных</span>
