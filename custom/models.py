@@ -18,17 +18,18 @@ class Maps(models.Model):
 
 
 class IndexSlider(models.Model):
-    photo = models.ImageField(upload_to='index_slider/', verbose_name='Изображение')
+    file = models.FileField(upload_to='index_slider/', verbose_name='Изображение', blank=True)
+    type = models.CharField(max_length=50, verbose_name='Тип файла(video/image)')
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
 
-    def image_tag(self):
-        if self.photo:
-            return mark_safe(f'<img src="{self.photo.url}" width="150px" height="150px" />')
-        else:
-            return ''
+    # def image_tag(self):
+    #     if self.photo:
+    #         return mark_safe(f'<img src="{self.photo.url}" width="150px" height="150px" />')
+    #     else:
+    #         return ''
 
-    image_tag.short_description = 'Фото'
+    # image_tag.short_description = 'Фото'
 
     class Meta:
         verbose_name = 'Слайдер главной страницы'

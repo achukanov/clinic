@@ -5,7 +5,11 @@
         <ul class="uk-slideshow-items" uk-height-viewport="min-height: 100Vh">
             {% for slide in slider %}
                 <li>
-                    <img src="{{ slide.photo.url }}" alt="" uk-cover>
+                    {% if slide.type == 'image' %}
+                        <img src="{{ slide.file.url }}" alt="" uk-cover>
+                    {% else %}
+                        <video src="{{ slide.file.url }}" alt="" uk-cover uk-video="autoplay: inview"></video>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

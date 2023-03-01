@@ -39,21 +39,14 @@
 
             {% if booking_url %}
                 <a href="{{ booking_url }}" title="Записаться на прием">
+            {% else %}
+                <a href="/booking" title="Записаться на прием">
+            {% endif %}
                     <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
                             class="flaticon-hotel"
                             style="font-size:35px"></i>
                         <span class="uk-margin-small-left uk-visible@l">Запись на<br>прием</span></div>
                 </a>
-            {% else %}
-            <a title="Записаться на прием">
-                <div class="top bron uk-text-uppercase" style="background-color:red; color:white"><i
-                        class="flaticon-hotel"
-                        style="font-size:35px"></i>
-                    <span class="uk-margin-small-left uk-visible@l" uk-toggle="target: #modal-example">Запись на<br>прием</span>
-                </div>
-            </a>
-            {% endif %}
-
         </div>
         <div>
             <div class="uk-flex">
