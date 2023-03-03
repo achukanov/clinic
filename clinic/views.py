@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Doctors, Specializations, Price, Certificates, Videos, Diseases, SpecSlider
 from custom.models import IndexSlider
 from custom.models import Maps
@@ -17,11 +17,12 @@ def index(request):
 
 
 def contacts(request):
-    map_link = Maps.objects.filter(active=True).first()
+    map = Maps.objects.filter(active=True).first()
+    map_link = map.title if map else ' '
     return render(request,
                   'clinic/contacts.html', {
                       'request': request,
-                      'map_link': map_link.title
+                      'map_link': map_link
                   })
 
 
@@ -98,4 +99,10 @@ def doctor(request, slug, id):
                       'videos': videos,
                       'certificates': certificates
                   })
+
+
+def probe(request):
+    print('request', request)
+    print('after request')
+    return render(request, 'clinic/probe.html')
 

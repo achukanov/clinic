@@ -6,19 +6,20 @@ from custom.models import OtherData
 def context_tags(request):
     # form = BookingForm()
     # print('form in request', request.)
-
+    context = {}
     data = OtherData.objects.all().order_by('number')
-    context = {
-        'booking_url': data[0].data,
-        'description': data[1].data,
-        'title': data[2].data,
-        'address': data[3].data,
-        'phone': data[4].data,
-        'mail': data[5].data,
-        'year': datetime.now().year,
-        'instagram': data[6].data,
-        # 'form': form
-    }
+    if data:
+        context = {
+            'booking_url': data[0].data,
+            'description': data[1].data,
+            'title': data[2].data,
+            'address': data[3].data,
+            'phone': data[4].data,
+            'mail': data[5].data,
+            'year': datetime.now().year,
+            'instagram': data[6].data,
+            # 'form': form
+        }
     return context
 
 
