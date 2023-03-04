@@ -26,18 +26,18 @@ def booking(request):
             name = form_data.name
             phone = form_data.phone
             send_email(doctor=doctor, name=name, phone=phone)
-            return redirect('/')
+            return HttpResponseRedirect(next)
         else:
             print('---------------------------------------------------not valid!')
             print(form.fields['doctor'])
             print(form.errors)
             print('form', form.data)
-            return HttpResponseRedirect(next)
-            # return render(request,
-            #               'booking/booking.html', {
-            #                   'request': request,
-            #                   'form': form
-            #               })
+            # return HttpResponseRedirect(next)
+            return render(request,
+                          'booking/booking.html', {
+                              'request': request,
+                              'form': form
+                          })
 
     form = BookingForm()
     return render(request,
