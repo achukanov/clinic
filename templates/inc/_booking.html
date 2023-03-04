@@ -16,35 +16,44 @@
 {#        {{ form.spec }}#}
         {{ form.non_field_errors }}
 
-        <div class="uk-margin fieldWrapper">
-            <label for="spec">Your spec: </label>
-            <select class="uk-select" aria-label="Select" id="spec" name="spec">
-                {% for choice in form.spec %}
-                    <option>{{ choice }}</option>
-                {% endfor %}
-            </select>
-        </div>
+{#        <div class="uk-margin fieldWrapper">#}
+{#            <label for="spec">Your spec: </label>#}
+{#            <select class="uk-select" aria-label="Select" id="spec" name="spec">#}
+{#                {% for choice in form.spec %}#}
+{#                    <option>{{ choice }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
+{#        </div>#}
 
         <div class="uk-margin fieldWrapper">
-            <label for="spec">Your doctor: </label>
-            {{ form.doctor.errors }}
-            <select class="uk-select" aria-label="Select" id="doctor" name="doctor">
-                {% for choice in form.doctor %}
-                    <option>{{ choice }}</option>
-                {% endfor %}
+                <label for="spec">Выберите врача: </label>
+                {{ form.doctor.errors }}
+                <select class="uk-select" aria-label="Select" id="doctor" name="doctor">
+                    {% for choice in form.doctor %}
+                        <option>{{ choice }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-            </select>
-        </div>
+            <div class="uk-margin fieldWrapper">
+                <label for="name">Ваше имя: </label>
+                {{ form.name.errors }}
+                <input class="uk-input" aria-label="Input" id="name" type="text"
+                       {% if form.name.value %}
+                       value="{{ form.name.value }}"
+                       {% endif %}
+                       name="name" maxlength="100" required>
+            </div>
 
-        <div class="uk-margin fieldWrapper">
-            <label for="name">Your name: </label>
-            <input class="uk-input" aria-label="Input" id="name" type="text" name="name" maxlength="100" required>
-        </div>
-
-        <div class="uk-margin fieldWrapper">
-            <label for="phone">Your phone: </label>
-            <input class="uk-input" aria-label="Input" id="phone" type="text" name="phone" maxlength="100" required>
-        </div>
+            <div class="uk-margin fieldWrapper">
+                <label for="phone">Номер телефона: </label>
+                {{ form.phone.errors }}
+                <input class="uk-input" aria-label="Input" id="phone" type="text"
+                       {% if form.phone.value %}
+                       value="{{ form.phone.value }}"
+                       {% endif %}
+                       name="phone" maxlength="100" required>
+            </div>
 
         <input type="hidden" name="next" value="{{ request.path }}">
 

@@ -19,15 +19,17 @@ class Maps(models.Model):
 
 class IndexSlider(models.Model):
     file = models.FileField(upload_to='index_slider/', verbose_name='Изображение', blank=True)
-    type = models.CharField(max_length=50, verbose_name='Тип файла(video/image)')
+    type = models.BooleanField(verbose_name='Картинка?')
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
 
     # def image_tag(self):
-    #     if self.photo:
-    #         return mark_safe(f'<img src="{self.photo.url}" width="150px" height="150px" />')
-    #     else:
-    #         return ''
+    #     if self.type and self.file:
+    #         try:
+    #             return mark_safe(f'<img src="{self.file.url}" width="150px" height="150px" />')
+    #         except Exception:
+    #             print(Exception)
+    #     return ''
 
     # image_tag.short_description = 'Фото'
 

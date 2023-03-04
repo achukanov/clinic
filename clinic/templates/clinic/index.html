@@ -5,7 +5,7 @@
         <ul class="uk-slideshow-items" uk-height-viewport="min-height: 100Vh">
             {% for slide in slider %}
                 <li>
-                    {% if slide.type == 'image' %}
+                    {% if slide.type %}
                         <img src="{{ slide.file.url }}" alt="" uk-cover>
                     {% else %}
                         <video src="{{ slide.file.url }}" alt="" uk-cover uk-video="autoplay: inview"></video>
@@ -62,11 +62,13 @@
             {% for doctor in doctors %}
                 <div>
                     <div class="uk-card uk-card-default">
+                        {% if doctor.photo %}
                         <div class="uk-card-media-top">
                             <img style="width:100%;height:300px;object-fit:cover;object-position: top"
                                  src="{{ doctor.photo.url }}"
                                  alt="{{ doctor.title }}">
                         </div>
+                        {% endif %}
                         <div class="uk-card-body">
                             <h3 class="uk-card-title">{{ doctor.title }}</h3>
                             <p>{{ doctor.description }}</p>

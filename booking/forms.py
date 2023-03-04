@@ -29,12 +29,12 @@ class BookingForm(forms.ModelForm):
         #                               required=True)
         doctor = forms.ModelChoiceField(queryset=doc_list, required=True)
 
-    def clean_phone(self):
-        phone = self.cleaned_data['phone']
-        print('phone', phone)
-        if not phone.isdigit():
-            raise ValidationError('В поле могут быть только цифры')
-        return phone
+    # def clean_phone(self):
+    #     phone = self.cleaned_data['phone']
+    #     print('phone', phone)
+    #     if not phone.isdigit():
+    #         raise ValidationError('В поле могут быть только цифры')
+    #     return phone
 
         # widgets = {
         #     'name': forms.TextInput(),

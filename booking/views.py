@@ -17,7 +17,7 @@ from .send_message import send_email
 
 def booking(request):
     if request.method == 'POST':
-        # next = request.POST.get('next', '/')
+        next = request.POST.get('next', '/')
         form = BookingForm(request.POST)
         if form.is_valid():
             print('---------------------------------------------------valid!')
@@ -32,12 +32,12 @@ def booking(request):
             print(form.fields['doctor'])
             print(form.errors)
             print('form', form.data)
-            # return HttpResponseRedirect(next)
-            return render(request,
-                          'booking/booking.html', {
-                              'request': request,
-                              'form': form
-                          })
+            return HttpResponseRedirect(next)
+            # return render(request,
+            #               'booking/booking.html', {
+            #                   'request': request,
+            #                   'form': form
+            #               })
 
     form = BookingForm()
     return render(request,
