@@ -3,6 +3,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.header import Header
 
+from booking.models import EmailBotSettings
+
 'настройки отправки почты'
 EMAIL_PORT = 465  # For SSL
 SMTP_SERVER = "smtp.rambler.ru"
@@ -12,12 +14,13 @@ EMAIL_PASSWORD = '2picitaliaparis'
 
 
 def send_email(doctor, name, phone):
+    parameters = EmailBotSettings.objects.first()
     print('---------------------------------------------------in sendemail')
-    port = 465  # For SSL
-    smtp_server = "smtp.rambler.ru"
-    sender_email = "drus206@rambler.ru"  # Enter your address
-    receiver_email = "a.chukanov@rambler.ru"  # Enter receiver address
-    password = '2picitaliaparis'
+    port = parameters.port  # For SSL
+    smtp_server = parameters.smtp_server
+    sender_email = parameters.sender_email  # Enter your address
+    receiver_email = parameters.receiver_email  # Enter receiver address
+    password = parameters.password
     # message = """\
     # Subject: Hi there
     #

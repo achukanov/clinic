@@ -8,19 +8,20 @@ from django.core.exceptions import ValidationError
 class BookingForm(forms.ModelForm):
     # def __init__(self, *args, **kwargs):
     #     super(BookingForm, self).__init__(*args, **kwargs)
-    #     # spec_list = Specializations.objects.filter(active=True).order_by('-sorting')
-    #     doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
-    #     # print([i.title for i in spec_list])
-    #     print([i.title for i in doc_list])
-    #     # for i in doc_list:
-    #     #     print(i.title)
-    #     # self.fields['spec'].queryset = spec_list
-    #     self.fields['doctor'].queryset = doc_list
+        # spec_list = Specializations.objects.filter(active=True).order_by('-sorting')
+        # doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
+        # print([i.title for i in spec_list])
+        # print([i.title for i in doc_list])
+        # for i in doc_list:
+        #     print(i.title)
+        # self.fields['spec'].queryset = spec_list
+        # self.fields['doctor'].choices = doc_list
 
     class Meta:
         # spec_list = Specializations.objects.filter(active=True).order_by('-sorting')
         # print(spec_list)
         doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
+        # print('doc_list in form:', doc_list)
         # print(doc_list)
         model = Booking
         fields = ['doctor', 'name', 'phone']

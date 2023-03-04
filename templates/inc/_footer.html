@@ -9,10 +9,12 @@
                     <li><a href="/prices">Цены</a></li>
                     <li><a href="/contacts">Контакты</a></li>
                 </ul>
-                <div class="soc uk-margin-bottom">
-                    <a href="{{ instagram }}" title="instagram"
-                       class="uk-icon-button" uk-icon="instagram" target="_blank" rel="noopener"></a>
-                </div>
+                {% if instagram %}
+                    <div class="soc uk-margin-bottom">
+                        <a href="{{ instagram }}" title="instagram"
+                           class="uk-icon-button" uk-icon="instagram" target="_blank" rel="noopener"></a>
+                    </div>
+                {% endif %}
                 <a href="{{ phone }}" title="{{ phone }}" class="uk-text-large">{{ phone }}</a>
                 <br>
                 <div><span uk-icon="location"></span> {{ address }} </div>
