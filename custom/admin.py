@@ -8,9 +8,15 @@ class MapsAdmin(admin.ModelAdmin):
     list_display_links = ('name', 'active')
 
 
+# class IndexSliderAdmin(admin.ModelAdmin):
+#     list_display = ('type', 'sorting', 'active')
+#     list_display_links = ('type', 'sorting', 'active')
+#     # fields = ('photo', 'sorting', 'active')
+
+
 class IndexSliderAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'type', 'sorting', 'active')
-    list_display_links = ('pk', 'type', 'sorting', 'active')
+    list_display = ('type', 'sorting', 'active')
+    list_display_links = ('type', 'sorting', 'active')
     # fields = ('photo', 'sorting', 'active')
 
 

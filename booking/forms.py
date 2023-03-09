@@ -22,13 +22,13 @@ class BookingForm(forms.ModelForm):
         # print(spec_list)
         doc_list = Doctors.objects.filter(active=True).order_by('-sorting')
         # print('doc_list in form:', doc_list)
-        # print(doc_list)
+        print(doc_list)
         model = Booking
         fields = ['doctor', 'name', 'phone']
         # fields = ['spec', 'doctor', 'name', 'phone']
         # spec = forms.ModelChoiceField(queryset=spec_list,
         #                               required=True)
-        doctor = forms.ModelChoiceField(queryset=doc_list, required=True)
+        doctor = forms.ModelChoiceField(queryset=doc_list, required=True, initial=2)
 
     # def clean_phone(self):
     #     phone = self.cleaned_data['phone']

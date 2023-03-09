@@ -10,9 +10,9 @@
             <fieldset class="uk-fieldset">
                 <h2>Запись на приём</h2>
                 <h4>Администратор клиники перезвонит и запишет к специалисту</h4>
-                {% for choice in form.doctor %}
-                    {{ choice }}
-                {% endfor %}
+                {#                {% for choice in form.doctor %}#}
+                {#                    {{ choice }}#}
+                {#                {% endfor %}#}
                 {#        {{ form.spec }}#}
                 {{ form.non_field_errors }}
 
@@ -29,9 +29,9 @@
                     <label for="doctor">Выберите врача: </label>
                     {{ form.doctor.errors }}
                     <select class="uk-select" aria-label="Select" id="doctor" name="doctor" required>
-                            <option value="">-О-О-</option>
+                        {#                        <option selected value="">-О-О-</option>#}
                         {% for choice in form.doctor %}
-                            <option value="{{ choice }}"></option>
+                            {{ choice }}
                         {% endfor %}
                     </select>
                 </div>

@@ -19,10 +19,14 @@ class Maps(models.Model):
 
 class IndexSlider(models.Model):
     file = models.FileField(upload_to='index_slider/', verbose_name='Изображение', blank=True)
-    type = models.BooleanField(verbose_name='Картинка?')
     sorting = models.IntegerField(default=0, verbose_name='Приоритет')
     active = models.BooleanField(default=True, verbose_name='Активно')
+    type = models.BooleanField(default=True, verbose_name='Картинка?')
 
+    class Meta:
+        verbose_name = 'Слайдер главной страницы'
+        verbose_name_plural = 'Слайдер главной страницы'
+        ordering = ['sorting']
     # def image_tag(self):
     #     if self.type and self.file:
     #         try:
@@ -32,12 +36,6 @@ class IndexSlider(models.Model):
     #     return ''
 
     # image_tag.short_description = 'Фото'
-
-    class Meta:
-        verbose_name = 'Слайдер главной страницы'
-        verbose_name_plural = 'Слайдер главной страницы'
-        ordering = ['sorting']
-
 
 class OtherData(models.Model):
     number = models.IntegerField(verbose_name='Номер ячейки', blank=True)

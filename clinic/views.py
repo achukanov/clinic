@@ -88,7 +88,7 @@ def branch(request, slug):
                   })
 
 
-def doctor(request, slug, id):
+def doctor(request, id):
     doc = Doctors.objects.filter(pk=int(id), active=True).first()
     videos = Videos.objects.filter(doctor=doc, active=True).order_by('-sorting')
     certificates = Certificates.objects.filter(doctor=doc, active=True).order_by('-sorting')

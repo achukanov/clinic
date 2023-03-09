@@ -12,7 +12,7 @@
         <div uk-grid>
             <div class="uk-width-expand page-left-right">
                 <h1>{{ spec.title }}</h1>
-                {{ spec.text }}
+                {{ spec.text|linebreaks }}
                 {% for disease in diseases %}
                     <ul uk-accordion="duration:800">
                         <li>
@@ -22,20 +22,16 @@
                             <div class="uk-accordion-content">
                                 {{ disease.text|linebreaks }}
                                 <br>
-                                <div class="uk-section">
-                                    <div class="uk-flex uk-flex-center uk-flex-wrap">
-                                        {% for video in videos %}
-                                            {% if video.disease == disease %}
-                                                <div class="uk-padding">
-                                                    <iframe width="600" height="400"
-                                                            src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
-                                                            title="YouTube video player" frameborder="0"
-                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                            allowfullscreen></iframe>
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
+                                <div class="uk-flex uk-flex-center uk-flex-wrap">
+                                    {% for video in videos %}
+                                        {% if video.disease == disease %}
+                                            <iframe width="600" height="400"
+                                                    src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <hr>
                             </div>
@@ -43,32 +39,23 @@
                     </ul>
                 {% endfor %}
                 {% if slider %}
-                    <div uk-slider="autoplay: true">
-                        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
-                             uk-slider="clsActivated: uk-transition-active; center: true">
-                            <ul class="uk-slider-items uk-grid">
-                                {% for slide in slider %}
-                                    <li class="uk-width-3-4">
-                                        <div class="uk-panel">
-                                            <img src="{{ slide.photo.url }}" width="1800" height="1200" alt="">
-                                            <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-                                                <p class="uk-margin-remove">{{ slide.title }}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#"
-                               uk-slidenav-previous
-                               uk-slider-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#"
-                               uk-slidenav-next
-                               uk-slider-item="next"></a>
-                        </div>
-                        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-                    </div>
-                {% endif %}
+                    <div uk-slider>
 
+                    <ul class="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-light">
+                        {% for slide in slider %}
+                            <li class="uk-transition-toggle" tabindex="0">
+                                    <img src="{{ slide.photo.url }}" width="600" height="800" alt="">
+                                    {% if slide.title %}
+                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
+                                            <p class="uk-margin-remove">{{ slide.title }}</p>
+                                        </div>
+                                    {% endif %}
+                            </li>
+
+                        {% endfor %}
+                    </ul>
+                    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+                {% endif %}
 
                 {% for doctor in doctors %}
                     {#                    <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">#}
@@ -76,16 +63,16 @@
                          uk-grid>
                         <div class="uk-card-media-top uk-cover-container">
                             {% if doctor.photo %}
-                            <img style="width:100%;height:300px;object-fit:cover;object-position: top"
-                                 src="{{ doctor.photo.url }}"
-                                 alt="{{ doctor.title }}" uk-cover>
-                            <canvas width="600" height="400"></canvas>
+                                <img style="width:100%;height:300px;object-fit:cover;object-position: top"
+                                     src="{{ doctor.photo.url }}"
+                                     alt="{{ doctor.title }}" uk-cover>
+                                <canvas width="600" height="400"></canvas>
                             {% endif %}
                         </div>
                         <div>
                             <div class="uk-card-body">
                                 <h3 class="uk-card-title">
-                                    <a href="/medicine/{{ spec.slug }}/{{ doctor.pk }}">{{ doctor.title }}</a>
+                                    <a href="/doctors/{{ doctor.pk }}">{{ doctor.title }}</a>
                                     {#                                        {{ doctor.title }}#}
                                 </h3>
                                 <p>{{ doctor.description|linebreaks }}</p>
@@ -164,20 +151,20 @@
                 {#                        </div>#}
                 {#                    </li>#}
                 {#                </ul>#}
-            </div>
+                </div>
 
-            {#            {% for question in questions %}#}
-            {#                {% if question.answer %}#}
-            {#                    <p>#}
-            {#                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b#}
-            {#                            class="uk-text-muted">{{ question.name }}</b>:<br>#}
-            {#                        {{ question.text }}</p>#}
-            {#                    <p><b>Ответ:</b> {{ question.answer }}</p>#}
-            {#                    <hr>#}
-            {#                {% endif %}#}
-            {#            {% endfor %}#}
+                {#            {% for question in questions %}#}
+                {#                {% if question.answer %}#}
+                {#                    <p>#}
+                {#                        <span class="uk-text-muted uk-text-small">{{ question.created_at }}</span> Вопрос от <b#}
+                {#                            class="uk-text-muted">{{ question.name }}</b>:<br>#}
+                {#                        {{ question.text }}</p>#}
+                {#                    <p><b>Ответ:</b> {{ question.answer }}</p>#}
+                {#                    <hr>#}
+                {#                {% endif %}#}
+                {#            {% endfor %}#}
+            </div>
         </div>
-    </div>
-    <hr id="map" class="uk-divider-icon">
+        <hr id="map" class="uk-divider-icon">
 
 {% endblock %}

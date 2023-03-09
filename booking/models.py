@@ -2,15 +2,6 @@ from django.db import models
 from clinic.models import Doctors, Specializations, Branch
 
 
-'''
-port = 465  # For SSL
-    smtp_server = "smtp.rambler.ru"
-    sender_email = "drus206@rambler.ru"  # Enter your address
-    receiver_email = "a.chukanov@rambler.ru"  # Enter receiver address
-    password = '2picitaliaparis'
-'''
-
-
 class EmailBotSettings(models.Model):
     port = models.CharField(max_length=200, verbose_name='Порт')
     smtp_server = models.CharField(max_length=200, verbose_name='smtp сервер')
@@ -40,3 +31,12 @@ class Booking(models.Model):
         verbose_name = 'Заявку'
         verbose_name_plural = 'Заявки'
         ordering = ['-created_at']
+
+
+'''
+port = 465  # For SSL
+    smtp_server = "smtp.rambler.ru"
+    sender_email = "drus206@rambler.ru"  # Enter your address
+    receiver_email = "a.chukanov@rambler.ru"  # Enter receiver address
+    password = '2picitaliaparis'
+'''
