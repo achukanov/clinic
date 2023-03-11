@@ -14,18 +14,10 @@ class SpecializationsAdmin(admin.ModelAdmin):
     }
 
 
-class BranchAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sorting')
-    list_display_links = ('title', 'sorting')
-    list_filter = ('title', 'sorting',)
-    fields = ('title', 'slug', 'sorting')
-    readonly_fields = ('slug',)
-
-
 class DoctorsAdmin(admin.ModelAdmin):
     list_display = ('image_tag', 'title', 'sorting', 'active')
     list_display_links = ('image_tag', 'title', 'sorting', 'active')
-    list_filter = ('sorting', 'active', 'specialization', 'branch')
+    list_filter = ('sorting', 'active', 'specialization')
     search_fields = ('title', 'description', 'education')
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100'})},
@@ -39,26 +31,6 @@ class CertificatesAdmin(admin.ModelAdmin):
     list_filter = ('active', 'doctor')
     search_fields = ('title',)
     readonly_fields = ('created_at',)
-
-
-# class ArticlesAdmin(admin.ModelAdmin):
-#     list_display = ('image_tag', 'title', 'active', 'specialization')
-#     list_display_links = ('image_tag', 'title', 'active', 'specialization')
-#     list_filter = ('active', 'specialization')
-#     search_fields = ('title', 'slug', 'text')
-#     readonly_fields = ('slug', 'created_at', 'updated_at',)
-
-
-# class QuestionsAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'created_at', 'updated_at', 'active', 'is_answered', 'specialization')
-#     list_display_links = ('name', 'created_at', 'updated_at', 'active', 'is_answered', 'specialization')
-#     list_filter = ('active', 'is_answered', 'specialization')
-#     search_fields = ('name', 'text', 'answer')
-#     readonly_fields = ('created_at', 'updated_at',)
-#     formfield_overrides = {
-#         models.CharField: {'widget': TextInput(attrs={'size': '50'})},
-#         models.TextField: {'widget': Textarea(attrs={'rows': 15, 'cols': 150})},
-#     }
 
 
 class PriceAdmin(admin.ModelAdmin):
@@ -98,11 +70,8 @@ class SpecSliderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Specializations, SpecializationsAdmin)
-admin.site.register(Branch, BranchAdmin)
 admin.site.register(Doctors, DoctorsAdmin)
 admin.site.register(Certificates, CertificatesAdmin)
-# admin.site.register(Articles, ArticlesAdmin)
-# admin.site.register(Questions, QuestionsAdmin)
 admin.site.register(Price, PriceAdmin)
 admin.site.register(Diseases, DiseasesAdmin)
 admin.site.register(Videos, VideosAdmin)

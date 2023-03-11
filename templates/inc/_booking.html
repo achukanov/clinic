@@ -1,7 +1,3 @@
-{#{% extends 'main.html' %}#}
-
-{#{% block content %}#}
-{#<button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-example">Open</button>#}
 <div id="modal-example" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -10,26 +6,13 @@
             <fieldset class="uk-fieldset">
                 <h2>Запись на приём</h2>
                 <h4>Администратор клиники перезвонит и запишет к специалисту</h4>
-                {#                {% for choice in form.doctor %}#}
-                {#                    {{ choice }}#}
-                {#                {% endfor %}#}
-                {#        {{ form.spec }}#}
-                {{ form.non_field_errors }}
 
-                {#        <div class="uk-margin fieldWrapper">#}
-                {#            <label for="spec">Your spec: </label>#}
-                {#            <select class="uk-select" aria-label="Select" id="spec" name="spec">#}
-                {#                {% for choice in form.spec %}#}
-                {#                    <option>{{ choice }}</option>#}
-                {#                {% endfor %}#}
-                {#            </select>#}
-                {#        </div>#}
+                {{ form.non_field_errors }}
 
                 <div class="uk-margin fieldWrapper">
                     <label for="doctor">Выберите врача: </label>
                     {{ form.doctor.errors }}
                     <select class="uk-select" aria-label="Select" id="doctor" name="doctor" required>
-                        {#                        <option selected value="">-О-О-</option>#}
                         {% for choice in form.doctor %}
                             {{ choice }}
                         {% endfor %}
@@ -66,7 +49,6 @@
         </form>
     </div>
 </div>
-{#{% endblock %}#}
 
 
 

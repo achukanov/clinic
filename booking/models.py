@@ -1,5 +1,5 @@
 from django.db import models
-from clinic.models import Doctors, Specializations, Branch
+from clinic.models import Doctors, Specializations
 
 
 class EmailBotSettings(models.Model):

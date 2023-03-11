@@ -28,20 +28,6 @@ class Specializations(models.Model):
         ordering = ['-sorting']
 
 
-class Branch(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Специальность врача')
-    slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG', db_index=True)
-    sorting = models.IntegerField(default=0, verbose_name='Приоритет')
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Специальность врача'
-        verbose_name_plural = 'Специальности врача'
-        ordering = ['-sorting']
-
-
 class Doctors(models.Model):
     title = models.CharField(max_length=100, verbose_name='ФИО')
     description = models.TextField(verbose_name='Дополнение', blank=True)
@@ -51,7 +37,6 @@ class Doctors(models.Model):
     photo = models.ImageField(upload_to='photos/', verbose_name='Фото', blank=True, storage=UUIDFileStorage())
     link = models.URLField(blank=True, verbose_name='Ссылка MEDFLEX')
 
-    branch = models.ManyToManyField(Branch, verbose_name='Специальности', related_name='Врачи')
     specialization = models.ManyToManyField(Specializations, verbose_name='Специализации', related_name='Врачи')
 
     def __str__(self):
@@ -93,58 +78,6 @@ class Certificates(models.Model):
         verbose_name = 'Сертификат'
         verbose_name_plural = 'Сертификаты'
         ordering = ['created_at']
-
-
-'''Модель статьи со старого сайта'''
-# class Articles(models.Model):
-#     title = models.CharField(max_length=255, unique=True, verbose_name='Заголовок', blank=False)
-#     slug = AutoSlugField(populate_from='title', unique=True, verbose_name='SLUG')
-#     text = models.TextField(verbose_name='Текст', blank=False)
-#     photo = models.ImageField(upload_to='articles/', verbose_name='Изображение', blank=True, storage=UUIDFileStorage())
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
-#     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
-#     active = models.BooleanField(default=True, verbose_name='Активно')
-#
-#     specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
-#
-#     def __str__(self):
-#         return self.title
-#
-#     def image_tag(self):
-#         if self.photo:
-#             return mark_safe(f'<img src="{self.photo.url}" width="100px" height="100px" />')
-#         else:
-#             return ''
-#
-#     image_tag.short_description = 'Фото'
-#
-#     class Meta:
-#         verbose_name = 'Статью'
-#         verbose_name_plural = 'Статьи'
-#         ordering = ['updated_at']
-
-
-'''Модель вопросов со старого сайта'''
-
-
-# class Questions(models.Model):
-#     name = models.CharField(max_length=50, verbose_name='Имя', blank=False)
-#     text = models.TextField(verbose_name='Вопрос', blank=False)
-#     answer = models.TextField(verbose_name='Ответ', blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления', blank=True)
-#     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения', blank=True)
-#     active = models.BooleanField(default=True, verbose_name='Активен', blank=True)
-#     is_answered = models.BooleanField(default=False, verbose_name='Есть ответ', blank=True)
-#
-#     specialization = models.ForeignKey(Specializations, on_delete=models.RESTRICT, verbose_name='Специальность')
-#
-#     def __str__(self):
-#         return self.text
-#
-#     class Meta:
-#         verbose_name = 'Вопрос'
-#         verbose_name_plural = 'Вопросы'
-#         ordering = ['created_at']
 
 
 class Price(models.Model):

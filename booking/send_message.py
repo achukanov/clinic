@@ -1,19 +1,11 @@
 import smtplib, ssl
+import socket
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.header import Header
-
 from booking.models import EmailBotSettings
-
-'настройки отправки почты'
-EMAIL_PORT = 465  # For SSL
-SMTP_SERVER = "smtp.rambler.ru"
-SENDER_EMAIL = "drus206@rambler.ru"  # Enter your address
-RECEIVER_EMAIL = "a.chukanov@rambler.ru"  # Enter receiver address
-EMAIL_PASSWORD = '2picitaliaparis'
+import logging
 
 
-# TODO: логирование
 def send_email(doctor, name, phone):
     parameters = EmailBotSettings.objects.first()
     if parameters:
@@ -34,6 +26,14 @@ def send_email(doctor, name, phone):
         msg.attach(MIMEText(text, 'plain'))
 
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-            server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, msg.as_string())
+        try:
+            with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                server.login(sender_email, password)
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+                logging.info(f'Письмо с бронированием отправлено на почту {receiver_email}')
+        except socket.gaierror as err:
+            logging.critical(f'Неверно заданы параметры почтового бота! {err}')
+        except smtplib.SMTPServerDisconnected as err:
+            logging.critical(f'Нет соединения с SMTPServer почтового бота! {err}')
+    else:
+        logging.critical(f'Не заданы параметры почтового бота!')

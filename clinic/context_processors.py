@@ -1,10 +1,12 @@
 from datetime import datetime
 from booking.forms import BookingForm
 from custom.models import OtherData
+from django.core.cache import cache
 
 
 def context_tags(request):
     form = BookingForm()
+    # data = cache.get_or_set('context_data', OtherData.objects.all().order_by('number'))
     data = OtherData.objects.all().order_by('number')
     context = {}
     if data:
@@ -37,11 +39,10 @@ def context_tags(request):
 '''
 '''
     'booking_url' - если TRUE, то медфлекс, если пустая строка - своя форма бронирования
-    'description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
+    'META description': "Предлагаем Вам качественное медицинское лечение и обследование по низким ценам в Ессентуках. Наш телефон: +7(988)860-43-00",
     'adress': 'Ставропольский край, Ессентуки г., ул. Разумовского, 7',
     'phone': '+7(988)8604300',
     'mail': 'andros-008@mail.ru',
-    'year': datetime.now().year,
     'instagram': 'https://www.instagram.com/clinic_andros_essentuki/'
     'title': 'Андрос+'
 '''

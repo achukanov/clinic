@@ -72,8 +72,10 @@
                             </div>
                         {% endif %}
                         <div class="uk-card-body">
-                            <h3>{{ doctor.title }}</h3>
-                            <p>{{ doctor.description|linebreaks }}</p>
+                            <a class="uk-link-reset" href="/doctors/{{ doctor.pk }}">
+                                <h3>{{ doctor.title }}</h3>
+                                <p>{{ doctor.description|linebreaks }}</p>
+                            </a>
                         </div>
                         {% if booking_url %}
                             <div class="uk-card-footer">

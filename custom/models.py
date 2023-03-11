@@ -37,6 +37,7 @@ class IndexSlider(models.Model):
 
     # image_tag.short_description = 'Фото'
 
+
 class OtherData(models.Model):
     number = models.IntegerField(verbose_name='Номер ячейки', blank=True)
     title = models.TextField(verbose_name='Описание')
@@ -45,3 +46,9 @@ class OtherData(models.Model):
     class Meta:
         verbose_name = 'Информацию для сайта'
         verbose_name_plural = 'Информация для сайта'
+
+
+class MyModel(models.Model):
+    img_width = models.PositiveIntegerField(null=True)
+    img_height = models.PositiveIntegerField(null=True)
+    image = models.ImageField(upload_to='photos', height_field='img_height', width_field='img_width', max_length=100)

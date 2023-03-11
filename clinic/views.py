@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
 from .models import Doctors, Specializations, Price, Certificates, Videos, Diseases, SpecSlider
 from custom.models import IndexSlider
 from custom.models import Maps
-from booking.models import Booking
 
 
 def index(request):
@@ -53,17 +52,11 @@ def price(request):
                   })
 
 
-def laborators(request):
-    return render(request, 'clinic/laborators.html')
+def laboratories(request):
+    return render(request, 'clinic/laboratories.html')
 
 
 def branch(request, slug):
-    # if request.method == 'POST':
-    #     form = QuestionForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('medicine')
-
     spec = Specializations.objects.filter(slug=slug).first()
     doctors = Doctors.objects.filter(specialization=spec).filter(active=True)
     certificates = Certificates.objects.filter(doctor__in=doctors, active=True).order_by('-sorting')
@@ -71,8 +64,6 @@ def branch(request, slug):
     diseases = Diseases.objects.filter(specialization=spec, active=True).order_by('-sorting')
     videos = Videos.objects.filter(specialization=spec, active=True).order_by('-sorting')
     slider = SpecSlider.objects.filter(specialization=spec, active=True).order_by('-sorting')
-    # questions = Questions.objects.filter(is_answered=True, active=True).order_by('-created_at')
-    # form = QuestionForm(initial={'specialization': spec})
     return render(request,
                   'clinic/branch.html', {
                       'request': request,
@@ -82,9 +73,7 @@ def branch(request, slug):
                       'prices': prices,
                       'diseases': diseases,
                       'videos': videos,
-                      'slider': slider,
-                      # 'questions': questions,
-                      # 'form': form
+                      'slider': slider
                   })
 
 

@@ -13,10 +13,10 @@
             <div class="uk-width-expand page-left-right">
                 <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
                     {% if doctor.photo %}
-                    <div class="uk-card-media-left uk-cover-container">
-                        <img src="{{ doctor.photo.url }}" alt="{{ doctor.title }}" uk-cover>
-                        <canvas width="600" height="400"></canvas>
-                    </div>
+                        <div class="uk-card-media-left uk-cover-container">
+                            <img src="{{ doctor.photo.url }}" alt="{{ doctor.title }}" uk-cover>
+                            <canvas width="600" height="400"></canvas>
+                        </div>
                     {% endif %}
                     <div>
                         <div class="uk-card-body">
@@ -48,23 +48,23 @@
                         {% endfor %}
                     </ul>
                 </div>
-{#                <div uk-lightbox="animation: slide">#}
-{#                    <ul class="uk-thumbnav">#}
-                        <div class="uk-section">
-                            <div class="uk-flex uk-flex-center uk-flex-wrap">
-                                {% for video in videos %}
-                                    <div class="uk-padding">
-                                        <iframe width="600" height="400"
-                                                src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
-                                                title="YouTube video player" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                allowfullscreen></iframe>
-                                    </div>
-                                {% endfor %}
+                {#                <div uk-lightbox="animation: slide">#}
+                {#                    <ul class="uk-thumbnav">#}
+                <div class="uk-section">
+                    <div class="uk-flex uk-flex-center uk-flex-wrap">
+                        {% for video in videos %}
+                            <div class="uk-padding">
+                                <iframe width="600" height="400"
+                                        src="https://www.youtube.com/embed/{{ video.link }}?controls=0"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
                             </div>
-                        </div>
-{#                    </ul>#}
-{#                </div>#}
+                        {% endfor %}
+                    </div>
+                </div>
+                {#                    </ul>#}
+                {#                </div>#}
             </div>
         </div>
     </div>
